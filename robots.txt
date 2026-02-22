@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kevinjohnwilliams.github.io/sitemap.xml
