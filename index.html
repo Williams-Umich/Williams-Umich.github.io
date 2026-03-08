@@ -579,27 +579,31 @@
   <script data-cfasync="false" src="/cdn-cgi/..."></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const observer = new IntersectionObserver...
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    setTimeout(() => document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible')), 300);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  setTimeout(() => document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible')), 300);
 
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - 200;
-        if (scrollY >= sectionTop) current = section.getAttribute('id');
-      });
-      navLinks.forEach(link => {
-        if (!link.classList.contains('nav-page')) {
-          link.style.color = link.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
-        }
-      });
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 200;
+      if (scrollY >= sectionTop) current = section.getAttribute('id');
     });
-
     navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('.nav-links
+      if (!link.classList.contains('nav-page')) {
+        link.style.color = link.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+      }
+    });
+  });
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('open');
+      document.querySelector('.hamburger').classList.remove('active');
+    });
+  });
+});
