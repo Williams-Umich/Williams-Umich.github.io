@@ -107,10 +107,7 @@
     .section-intro { font-family: 'Source Serif 4', serif; font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8; max-width: 700px; margin-bottom: 3rem; }
 
     .conviction-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
-    .conviction-card { display: grid; grid-template-columns: auto 1fr; gap: 2rem; padding: 2.5rem; border: 1px solid var(--border); background: var(--bg-card); transition: all 0.4s; position: relative; }
-    .conviction-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
-    .conviction-card:hover { border-color: var(--border-active); transform: translateX(4px); box-shadow: -2px 0 0 var(--accent); }
-    .conviction-card:hover::before { opacity: 1; }
+    .conviction-card { display: grid; grid-template-columns: auto 1fr; gap: 2rem; padding: 2.5rem; border: 1px solid var(--border); background: var(--bg-card); }
     .conviction-number { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 3rem; color: var(--accent); opacity: 0.3; line-height: 1; }
     .conviction-content h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem; }
     .conviction-problem { font-size: 0.8rem; color: var(--orange); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.8rem; font-weight: 500; }
@@ -119,19 +116,13 @@
     .outcome-tag { font-size: 0.65rem; letter-spacing: 0.05em; padding: 0.3rem 0.7rem; border: 1px solid var(--accent-dim); color: var(--accent); text-transform: uppercase; }
 
     .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .approach-card { padding: 2rem; border: 1px solid var(--border); background: var(--bg-card); transition: all 0.4s; position: relative; }
-    .approach-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
-    .approach-card:hover { border-color: var(--border-active); transform: translateX(4px); box-shadow: -2px 0 0 var(--accent); }
-    .approach-card:hover::before { opacity: 1; }
+    .approach-card { padding: 2rem; border: 1px solid var(--border); background: var(--bg-card); }
     .approach-icon { font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent); }
     .approach-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.8rem; }
     .approach-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; }
 
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
-    .project-card { border: 1px solid var(--border); background: var(--bg-card); padding: 2rem; transition: all 0.4s; position: relative; overflow: hidden; }
-    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--blue)); opacity: 0; transition: opacity 0.3s; }
-    .project-card:hover { border-color: var(--border); }
-    .project-card:hover::before { opacity: 0; }
+    .project-card { border: 1px solid var(--border); background: var(--bg-card); padding: 2rem; overflow: hidden; }
     .project-problem-label { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.5rem; font-weight: 500; }
     .project-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.15rem; margin-bottom: 0.5rem; }
     .project-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.2rem; }
@@ -163,10 +154,7 @@
     .skill-item::before { content: '\2192'; color: var(--text-muted); font-size: 0.7rem; }
 
     .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .edu-card { padding: 2rem; border: 1px solid var(--border); background: var(--bg-card); transition: all 0.4s; position: relative; }
-    .edu-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
-    .edu-card:hover { border-color: var(--border-active); transform: translateX(4px); box-shadow: -2px 0 0 var(--accent); }
-    .edu-card:hover::before { opacity: 1; }
+    .edu-card { padding: 2rem; border: 1px solid var(--border); background: var(--bg-card); }
     .edu-degree { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.3rem; }
     .edu-school { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.3rem; }
     .edu-year { font-size: 0.75rem; color: var(--text-muted); }
@@ -175,10 +163,7 @@
     .edu-featured a:hover { opacity: 1; }
 
     .awards-list { display: flex; flex-direction: column; gap: 1.2rem; }
-    .award-item { display: flex; align-items: flex-start; gap: 1.5rem; padding: 1.5rem; border: 1px solid var(--border); background: var(--bg-card); transition: all 0.3s; position: relative; }
-    .award-item::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
-    .award-item:hover { border-color: var(--border-active); transform: translateX(4px); box-shadow: -2px 0 0 var(--accent); }
-    .award-item:hover::before { opacity: 1; }
+    .award-item { display: flex; align-items: flex-start; gap: 1.5rem; padding: 1.5rem; border: 1px solid var(--border); background: var(--bg-card); }
     .award-icon { font-size: 1.8rem; line-height: 1; flex-shrink: 0; }
     .award-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; }
     .award-org { font-size: 0.8rem; color: var(--text-secondary); }
