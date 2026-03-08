@@ -581,6 +581,7 @@
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    setTimeout(() => document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible')), 300);
 
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
