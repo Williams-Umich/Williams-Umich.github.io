@@ -1,401 +1,381 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kevin Williams | Beyond the Code</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg-primary: #080c12;
-    --bg-secondary: #0d1219;
-    --bg-card: #111820;
-    --accent: #3b9dff;
-    --accent-dim: #3b9dff1a;
-    --accent-glow: #3b9dff33;
-    --accent-bright: #7ec4ff;
-    --status-green: #00e676;
-    --status-green-dim: #00e67622;
-    --warning: #ffab40;
-    --warning-dim: #ffab401a;
-    --warm: #c4956a;
-    --warm-dim: #c4956a22;
-    --text-primary: #e0e6ed;
-    --text-secondary: #7a8da0;
-    --text-muted: #4a5568;
-    --border: #1c2633;
-    --border-active: #2a3a4e;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kevin Williams | Beyond the Code</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --tr: background 0.6s ease, color 0.6s ease, border-color 0.4s ease; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'IBM Plex Mono', monospace;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    line-height: 1.6;
-  }
-
-  /* Subtle scanline overlay */
-  body::before {
-    content: '';
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(59, 157, 255, 0.008) 2px,
-      rgba(59, 157, 255, 0.008) 4px
-    );
-    pointer-events: none; z-index: 9999;
-  }
-
-  /* Orbital trajectory arcs */
-  .trajectory-bg {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none; z-index: 0; overflow: hidden;
-  }
-  .orbit-line {
-    position: absolute; border: 1px solid rgba(59, 157, 255, 0.06);
-    border-radius: 50%;
-  }
-  .orbit-line.o1 { width: 800px; height: 800px; top: -200px; right: -300px; }
-  .orbit-line.o2 { width: 1200px; height: 1200px; top: -400px; right: -500px; }
-  .orbit-line.o3 { width: 600px; height: 600px; bottom: -200px; left: -200px; border-color: rgba(0, 230, 118, 0.04); }
-
-  /* Console grid */
-  .console-grid {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 80px 80px;
-    opacity: 0.08;
-    pointer-events: none; z-index: 0;
-  }
-
-  /* ===== NAV ===== */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center;
-    backdrop-filter: blur(20px); background: rgba(8, 12, 18, 0.85);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
-    letter-spacing: -0.02em; color: var(--accent); text-decoration: none;
-    display: flex; align-items: center; gap: 0.6rem;
-  }
-  .nav-logo .status-dot {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--status-green);
-    box-shadow: 0 0 8px var(--status-green-dim);
-    animation: statusPulse 2s ease infinite;
-  }
-  @keyframes statusPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.3s; position: relative; }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s; }
-  .nav-links a:hover::after { width: 100%; }
-  .nav-links a.nav-page { color: var(--warning); }
-  .nav-links a.nav-page:hover { color: var(--accent); }
-
-  /* ===== LAYOUT ===== */
-  .container { max-width: 900px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
-  section { padding: 4rem 0; }
-
-  /* ===== PAGE HEADER ===== */
-  .page-header {
-    padding-top: 8rem; padding-bottom: 3rem;
-    opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s;
-  }
-  .page-label {
-    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 0.8rem;
-  }
-  .page-label::before { content: '//'; color: var(--text-muted); font-size: 0.7rem; }
-  .page-title {
-    font-family: 'Syne', sans-serif; font-weight: 800;
-    font-size: clamp(2.5rem, 5vw, 3.5rem); letter-spacing: -0.03em;
-    margin-bottom: 1.5rem; line-height: 1.1;
-  }
-  .page-intro {
-    font-family: 'Source Serif 4', serif; font-size: 1.15rem; font-weight: 300;
-    color: var(--text-secondary); max-width: 650px; line-height: 1.8;
-  }
-
-  .hero-photo {
-    width: 280px; height: 280px; object-fit: cover; object-position: center 20%;
-    border: 1px solid var(--border); float: right;
-    margin: 0 0 1.5rem 2rem;
-    filter: grayscale(20%); transition: filter 0.4s;
-  }
-  .hero-photo:hover { filter: grayscale(0%); }
-
-  /* ===== SECTION HEADERS ===== */
-  .section-label {
-    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 0.8rem;
-  }
-  .section-label::before { content: '//'; color: var(--text-muted); font-size: 0.7rem; }
-  .section-title {
-    font-family: 'Syne', sans-serif; font-weight: 700;
-    font-size: clamp(1.8rem, 3.5vw, 2.4rem); letter-spacing: -0.02em; margin-bottom: 2rem;
-  }
-
-  /* ===== DIVIDER ===== */
-  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 2rem 0; }
-
-  /* ===== PILLAR CARDS ===== */
-  .pillars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  .pillar-card {
-    padding: 2rem; border: 1px solid var(--border); background: var(--bg-card);
-    transition: all 0.4s; position: relative;
-  }
-  .pillar-card::before {
-    content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px;
-    background: var(--accent); opacity: 0; transition: opacity 0.3s;
-  }
-  .pillar-card:hover { border-color: var(--border-active); transform: translateX(4px); box-shadow: -2px 0 0 var(--accent); }
-  .pillar-card:hover::before { opacity: 1; }
-  .pillar-emoji { font-size: 1.5rem; margin-bottom: 0.8rem; }
-  .pillar-title {
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem;
-    margin-bottom: 0.6rem;
-  }
-  .pillar-text {
-    font-family: 'Source Serif 4', serif; font-size: 0.9rem;
-    color: var(--text-secondary); line-height: 1.7;
-  }
-
-  /* ===== PHOTO STRIP ===== */
-  .photo-strip {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 3rem 0;
-  }
-  .photo-strip img {
-    width: 100%; height: 280px; object-fit: cover;
-    border: 1px solid var(--border);
-    filter: grayscale(20%); transition: filter 0.4s;
-  }
-  .photo-strip img:hover { filter: grayscale(0%); }
-  .photo-caption {
-    font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--text-muted); margin-top: 0.5rem;
-  }
-
-  /* ===== REFLECTIONS ===== */
-  .reflection {
-    font-family: 'Source Serif 4', serif; font-size: 1.05rem;
-    color: var(--text-secondary); line-height: 1.85; max-width: 700px;
-  }
-  .reflection p + p { margin-top: 1.2rem; }
-
-  /* ===== PHILOSOPHY BLOCK ===== */
-  .philosophy-block {
-    margin: 2.5rem 0; padding: 2rem 2.5rem;
-    border-left: 2px solid var(--warm);
-    background: linear-gradient(90deg, var(--warm-dim), transparent);
-  }
-  .philosophy-quote {
-    font-family: 'Source Serif 4', serif; font-size: 1.05rem;
-    font-style: italic; color: var(--text-primary); line-height: 1.7;
-  }
-  .philosophy-attribution {
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
-    color: var(--text-muted); margin-top: 0.8rem; letter-spacing: 0.05em;
-  }
-
-  /* ===== BACK LINK ===== */
-  .back-link {
-    display: inline-block; margin: 2rem 0 4rem; padding: 0.8rem 2rem;
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    text-decoration: none; border: 1px solid var(--border);
-    color: var(--text-primary); transition: all 0.3s;
-  }
-  .back-link:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 20px var(--accent-dim); }
-
-  /* ===== FOOTER ===== */
-  footer {
-    padding: 2rem 3rem; border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 0.7rem; color: var(--text-muted);
-  }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-  /* ===== HAMBURGER ===== */
-  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; z-index: 101; background: none; border: none; }
-  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-secondary); transition: all 0.3s; }
-  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-  .hamburger.active span:nth-child(2) { opacity: 0; }
-  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .hamburger { display: flex; }
-    .nav-links {
-      position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
-      flex-direction: column; background: var(--bg-secondary);
-      padding: 5rem 2rem 2rem; gap: 1.5rem; transition: right 0.3s ease;
-      border-left: 1px solid var(--border);
+    [data-theme="dark"] {
+      --bg:  #05061a; --bgc: #090b24; --bgs: #0d1030;
+      --tx:  #e8eaf6; --tx2: #7880a8; --tx3: #3d4468;
+      --bd:  rgba(255,255,255,0.065); --bdh: rgba(91,155,255,0.42);
+      --ac:  #5b9bff; --acd: rgba(91,155,255,0.1);
+      --or:  #ff8c5b; --gn: #4dffa8; --yl: #ffd166; --pu: #b58bff;
+      --wm:  #c4956a; --wmd: rgba(196,149,106,0.15);
+      --nav: rgba(5,6,26,0.92);
+      --pb: #4a8ff5; --po: #ff7d45; --pg: #40e89a;
+      --py: #ffcc44; --pp: #a87dff; --pr: #ff5566;
     }
-    .nav-links.open { right: 0; }
-    .container { padding: 0 1.5rem; }
-    .pillars-grid { grid-template-columns: 1fr; }
-    .philosophy-block { padding: 1.5rem 2rem; }
-    .page-title { font-size: clamp(2rem, 6vw, 3rem); }
-    .reflection { font-size: 0.95rem; }
-    .hero-photo { float: none; width: 100%; max-width: 320px; height: auto; aspect-ratio: 1/1; margin: 0 0 1.5rem 0; }
-    .photo-strip { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-  }
-</style>
+    [data-theme="light"] {
+      --bg:  #f0f2ff; --bgc: #ffffff; --bgs: #e8ebfc;
+      --tx:  #090e2e; --tx2: #4a527a; --tx3: #9298b8;
+      --bd:  rgba(0,10,80,0.08); --bdh: rgba(45,100,220,0.42);
+      --ac:  #2d64dc; --acd: rgba(45,100,220,0.09);
+      --or:  #e8602d; --gn: #15a85e; --yl: #c8850e; --pu: #7c40e8;
+      --wm:  #a06030; --wmd: rgba(160,96,48,0.1);
+      --nav: rgba(240,242,255,0.93);
+      --pb: #3d7ce0; --po: #e0652a; --pg: #18a05a;
+      --py: #d49010; --pp: #8040d8; --pr: #d83040;
+    }
+
+    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--tx); overflow-x:hidden; line-height:1.6; transition:var(--tr); }
+
+    #cv { position:fixed; inset:0; pointer-events:none; z-index:0; }
+
+    .page-planets { position:absolute; top:0; left:0; width:100%; pointer-events:none; z-index:1; }
+    .pl { position:absolute; pointer-events:none; overflow:visible; }
+
+    @keyframes fa { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+    @keyframes fb { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+    @keyframes fc { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-11px) rotate(3deg)} }
+    @keyframes fd { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-17px)} }
+    @keyframes orb { from{transform:rotate(0deg) translateX(94px)} to{transform:rotate(360deg) translateX(94px)} }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:500; height:60px; padding:0 2.5rem; display:flex; align-items:center; justify-content:space-between; background:var(--nav); backdrop-filter:blur(20px); border-bottom:1px solid var(--bd); transition:var(--tr); }
+    .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; color:var(--ac); text-decoration:none; display:flex; align-items:center; gap:.5rem; }
+    .dot  { width:7px; height:7px; border-radius:50%; background:var(--gn); box-shadow:0 0 8px var(--gn); animation:pulse 2s ease infinite; }
+    @keyframes pulse { 0%,100%{opacity:.45} 50%{opacity:1} }
+    .nr { display:flex; align-items:center; gap:1.2rem; }
+    .nl { display:flex; gap:1.4rem; list-style:none; }
+    .nl a { font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--tx2); text-decoration:none; transition:color .2s; }
+    .nl a:hover { color:var(--ac); }
+    .nl a.bx { color:var(--or); }
+    .nl a.bx:hover { color:var(--ac); }
+    .tog { width:36px; height:20px; border-radius:10px; background:var(--bgs); border:1px solid var(--bd); cursor:pointer; position:relative; flex-shrink:0; }
+    .tog::after { content:''; position:absolute; top:3px; left:3px; width:12px; height:12px; border-radius:50%; background:var(--ac); transition:transform .3s; }
+    [data-theme="light"] .tog::after { transform:translateX(16px); }
+
+    /* LAYOUT */
+    .page { position:relative; }
+    .w  { max-width:860px; margin:0 auto; padding:0 2.5rem; position:relative; z-index:2; }
+    .dv { height:1px; background:var(--bd); position:relative; z-index:2; }
+    section { padding:4.5rem 0; position:relative; z-index:2; }
+
+    /* PAGE HEADER */
+    .hdr { padding-top:7rem; padding-bottom:2.5rem; position:relative; z-index:2; }
+    .lb  { font-family:'DM Mono',monospace; font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ac); margin-bottom:.7rem; display:flex; align-items:center; gap:.5rem; }
+    .lb::before { content:'//'; color:var(--tx3); }
+    .pg-title { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(2.4rem,5vw,3.4rem); letter-spacing:-.03em; margin-bottom:1.2rem; line-height:1.05; opacity:0; animation:fu .7s ease forwards .3s; }
+    .pg-intro { font-size:1.05rem; font-weight:300; color:var(--tx2); max-width:600px; line-height:1.8; opacity:0; animation:fu .7s ease forwards .5s; }
+
+    /* HERO PHOTO */
+    .hero-photo { width:260px; height:260px; object-fit:cover; object-position:center 20%; border:1px solid var(--bd); border-radius:4px; float:right; margin:0 0 1.5rem 2.5rem; filter:grayscale(15%); transition:filter .4s; position:relative; z-index:2; }
+    .hero-photo:hover { filter:grayscale(0%); }
+
+    /* SECTION LABELS */
+    .slb { font-family:'DM Mono',monospace; font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ac); margin-bottom:.6rem; display:flex; align-items:center; gap:.5rem; }
+    .slb::before { content:'//'; color:var(--tx3); }
+    .tt  { font-family:'Syne',sans-serif; font-weight:700; font-size:clamp(1.6rem,3vw,2.2rem); letter-spacing:-.02em; margin-bottom:1.5rem; }
+
+    /* PILLAR GRID */
+    .g2  { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+    .pc  { padding:1.8rem 1.6rem; border:1px solid var(--bd); background:var(--bgc); border-radius:8px; transition:all .3s; position:relative; overflow:hidden; }
+    .pc::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--ac),var(--pu)); opacity:0; transition:opacity .3s; }
+    .pc:hover { border-color:var(--bdh); transform:translateY(-4px); box-shadow:0 16px 48px var(--acd); }
+    .pc:hover::after { opacity:1; }
+    .pe  { font-size:1.4rem; margin-bottom:.7rem; }
+    .pc h3 { font-family:'Syne',sans-serif; font-weight:700; font-size:1rem; margin-bottom:.5rem; }
+    .pc p  { font-size:.87rem; color:var(--tx2); line-height:1.72; font-weight:300; }
+
+    /* PHOTO STRIP */
+    .ps  { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin:2rem 0; }
+    .ps img { width:100%; height:260px; object-fit:cover; border:1px solid var(--bd); border-radius:4px; filter:grayscale(15%); transition:filter .4s; }
+    .ps img:hover { filter:grayscale(0%); }
+    .pcap { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; color:var(--tx3); margin-top:.5rem; }
+
+    /* REFLECTIONS */
+    .rf  { font-size:1rem; font-weight:300; color:var(--tx2); line-height:1.85; max-width:680px; }
+    .rf p+p { margin-top:1.1rem; }
+
+    /* PHILOSOPHY BLOCK */
+    .ph-block { margin:2rem 0; padding:1.8rem 2.2rem; border-left:2px solid var(--wm); background:var(--wmd); border-radius:0 6px 6px 0; }
+    .ph-q { font-size:1rem; font-style:italic; color:var(--tx); line-height:1.75; }
+    .ph-a { font-family:'DM Mono',monospace; font-size:.65rem; color:var(--tx3); margin-top:.7rem; letter-spacing:.04em; }
+
+    /* BACK LINK */
+    .back { display:inline-block; margin:1.5rem 0 4rem; padding:.72rem 1.7rem; font-family:'DM Mono',monospace; font-size:.7rem; letter-spacing:.07em; text-transform:uppercase; text-decoration:none; border:1px solid var(--bd); color:var(--tx); transition:all .25s; border-radius:4px; position:relative; z-index:2; }
+    .back:hover { border-color:var(--ac); color:var(--ac); box-shadow:0 0 20px var(--acd); }
+
+    footer { padding:1.5rem 2.5rem; border-top:1px solid var(--bd); display:flex; justify-content:space-between; align-items:center; font-family:'DM Mono',monospace; font-size:.63rem; color:var(--tx3); position:relative; z-index:2; }
+
+    @keyframes fu { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+    .fi { opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s ease; }
+    .fi.on { opacity:1; transform:translateY(0); }
+
+    .hbg { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
+    .hbg span { display:block; width:20px; height:2px; background:var(--tx2); transition:all .3s; }
+    .hbg.on span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+    .hbg.on span:nth-child(2){opacity:0}
+    .hbg.on span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+    @media(max-width:768px){
+      nav{padding:0 1.5rem}.hbg{display:flex}
+      .nl{position:fixed;top:0;right:-100%;width:70%;height:100vh;flex-direction:column;background:var(--bgc);padding:5rem 2rem 2rem;gap:1.5rem;transition:right .3s;border-left:1px solid var(--bd);z-index:499}
+      .nl.open{right:0}.nl a{font-size:.85rem}.w{padding:0 1.5rem}
+      .g2{grid-template-columns:1fr}.ps{grid-template-columns:1fr}
+      .hero-photo{float:none;width:100%;max-width:300px;height:auto;aspect-ratio:1/1;margin:0 0 1.5rem 0}
+      footer{flex-direction:column;gap:.5rem;text-align:center}
+    }
+  </style>
 </head>
 <body>
+<canvas id="cv"></canvas>
 
-<div class="trajectory-bg">
-  <div class="orbit-line o1"></div>
-  <div class="orbit-line o2"></div>
-  <div class="orbit-line o3"></div>
-</div>
-<div class="console-grid"></div>
-
+<!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo"><span class="status-dot"></span> KW.</a>
-  <button class="hamburger" aria-label="Menu" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open');">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links">
-    <li><a href="index.html#why">Why</a></li>
-    <li><a href="index.html#work">Work</a></li>
-    <li><a href="index.html#path">Path</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
-    <li><a href="beyond.html" class="nav-page">Beyond the Code</a></li>
-  </ul>
+  <a href="index.html" class="logo"><span class="dot"></span> KW</a>
+  <div class="nr">
+    <button class="hbg" id="hbg"><span></span><span></span><span></span></button>
+    <ul class="nl" id="nl">
+      <li><a href="index.html#why">Why</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#path">Path</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="beyond.html" class="bx">Beyond</a></li>
+    </ul>
+    <button class="tog" id="tog"></button>
+  </div>
 </nav>
 
-<div class="container">
+<div class="page" id="page">
+<div class="page-planets" id="pp"></div>
 
-  <div class="page-header">
-    <div class="page-label">Off the Clock</div>
-    <img src="images/paris.jpeg" alt="Kevin in Paris by the Seine" class="hero-photo">
-    <h1 class="page-title">Beyond the Code</h1>
-    <p class="page-intro">
-      Engineering is what I do. But it is not all of who I am. This page is about the things that shape how I think, how I show up, and what I am building toward beyond any job title.
-    </p>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Pillars -->
-  <section class="fade-in">
-    <div class="section-label">What Shapes Me</div>
-    <h2 class="section-title">The Pillars</h2>
-    <div class="pillars-grid">
-      <div class="pillar-card">
-        <div class="pillar-emoji">&#x1F3CB;</div>
-        <div class="pillar-title">Training</div>
-        <div class="pillar-text">
-          Every day, no exceptions. It is less about fitness and more about practice. Showing up when you do not feel like it, doing the hard thing because it is hard. The discipline I build in the gym is the same discipline I bring to everything else.
-        </div>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-emoji">&#x1F4D6;</div>
-        <div class="pillar-title">Philosophy</div>
-        <div class="pillar-text">
-          I think about love, kindness, faith, and what it means to live well. Not because I have answers, but because the questions are worth sitting with. The way I approach problems in engineering starts here.
-        </div>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-emoji">&#x1F3B5;</div>
-        <div class="pillar-title">Music</div>
-        <div class="pillar-text">
-          I produce and play. Music is the one place where structure and feeling are not at odds. They need each other. It is a different kind of problem solving, and it keeps me creative in ways code cannot.
-        </div>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-emoji">&#x1F680;</div>
-        <div class="pillar-title">The Dream</div>
-        <div class="pillar-text">
-          I still want to be an astronaut. I do not know if it will happen, but I know every piece of work I do is pointed in that direction. The AI safety, the systems engineering, the physical training. The work matters either way.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <div class="photo-strip fade-in">
-    <div>
-      <img src="images/gym.jpeg" alt="Kevin training at the gym" style="object-position: center 20%;">
-      <div class="photo-caption">Daily discipline</div>
-    </div>
-    <div>
-      <img src="images/esa.jpeg" alt="Kevin at ESA European Astronaut Centre" style="object-position: center 30%;">
-      <div class="photo-caption">ESA Astronaut Centre, Cologne</div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Reflections -->
-  <section class="fade-in">
-    <div class="section-label">On What Matters</div>
-    <h2 class="section-title">Reflections</h2>
-
-    <div class="reflection">
-      <p>
-        I believe that how you live matters more than what you accomplish. Accomplishments fade. The way you treat people, the integrity you carry into a room, the willingness to sit with hard questions instead of rushing past them. That is what stays.
-      </p>
-      <p>
-        I train every single day because discipline is not something I want to turn on and off. It is a practice. The days I do not feel like showing up are the days that matter most, because that is where the real version of you gets built. Not in the highlight reel, but in the quiet repetition.
-      </p>
-      <p>
-        I think a lot about kindness. Not the soft, passive kind, but the kind that takes courage. Being honest with someone because you care about them. Holding space for people without needing to fix them. Choosing gentleness in a world that rewards hardness.
-      </p>
-    </div>
-
-    <div class="philosophy-block">
-      <div class="philosophy-quote">
-        "Love is the quiet recognition of something shared. The same light within another. It needs no claim, no ownership, no proof. It is the soft awareness that what is most essential in you is also alive in them."
-      </div>
-      <div class="philosophy-attribution">&mdash; From my own reflections</div>
-    </div>
-
-    <div class="reflection">
-      <p>
-        I do not have social media. That is intentional. I would rather be known for what I build and how I treat people than for a curated online presence. This website exists because I think there is value in sharing who you are honestly, but on your own terms, in your own space.
-      </p>
-      <p>
-        If any of this resonates, or if you just want to talk about philosophy, music, space, or what it means to live with purpose, I am always open to a good conversation.
-      </p>
-    </div>
-  </section>
-
-  <a href="index.html" class="back-link">&larr; Back to the work</a>
-
+<!-- PAGE HEADER -->
+<div class="w hdr fi">
+  <div class="lb">Off the Clock</div>
+  <img src="images/paris.jpeg" alt="Kevin in Paris" class="hero-photo">
+  <h1 class="pg-title">Beyond the Code</h1>
+  <p class="pg-intro">Engineering is what I do. But it is not all of who I am. This page is about the things that shape how I think, how I show up, and what I'm building toward beyond any job title.</p>
 </div>
 
+<div class="dv"></div>
+
+<!-- PILLARS -->
+<section class="fi">
+  <div class="w">
+    <div class="slb">What Shapes Me</div>
+    <h2 class="tt">The Pillars</h2>
+    <div class="g2">
+      <div class="pc"><h3>Training</h3><p>Every day, no exceptions. It is less about fitness and more about practice. Showing up when you don't feel like it, doing the hard thing because it's hard. The discipline I build in the gym is the same discipline I bring to everything else.</p></div>
+      <div class="pc"><h3>Philosophy</h3><p>I think about love, kindness, faith, and what it means to live well. Not because I have answers, but because the questions are worth sitting with. The way I approach problems in engineering starts here.</p></div>
+      <div class="pc"><h3>Music</h3><p>I produce and play. Music is the one place where structure and feeling are not at odds — they need each other. It is a different kind of problem solving, and it keeps me creative in ways code cannot.</p></div>
+      <div class="pc"><h3>The Dream</h3><p>I still want to be an astronaut. I don't know if it will happen, but I know every piece of work I do is pointed in that direction. The AI safety, the systems engineering, the physical training. The work matters either way.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="dv"></div>
+
+<!-- PHOTO STRIP -->
+<section class="fi">
+  <div class="w">
+    <div class="ps">
+      <div>
+        <img src="images/gym.jpeg" alt="Kevin training" style="object-position:center 20%;">
+        <div class="pcap">Daily discipline</div>
+      </div>
+      <div>
+        <img src="images/esa.jpeg" alt="Kevin at ESA European Astronaut Centre" style="object-position:center 30%;">
+        <div class="pcap">ESA Astronaut Centre, Cologne</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="dv"></div>
+
+<!-- REFLECTIONS -->
+<section class="fi">
+  <div class="w">
+    <div class="slb">On What Matters</div>
+    <h2 class="tt">Reflections</h2>
+    <div class="rf">
+      <p>I believe that how you live matters more than what you accomplish. Accomplishments fade. The way you treat people, the integrity you carry into a room, the willingness to sit with hard questions instead of rushing past them — that is what stays.</p>
+      <p>I train every single day because discipline is not something I want to turn on and off. It is a practice. The days I don't feel like showing up are the days that matter most, because that is where the real version of you gets built. Not in the highlight reel, but in the quiet repetition.</p>
+      <p>I think a lot about kindness. Not the soft, passive kind, but the kind that takes courage. Being honest with someone because you care about them. Holding space for people without needing to fix them. Choosing gentleness in a world that rewards hardness.</p>
+    </div>
+
+    <div class="ph-block">
+      <div class="ph-q">"Love is the quiet recognition of something shared. The same light within another. It needs no claim, no ownership, no proof. It is the soft awareness that what is most essential in you is also alive in them."</div>
+      <div class="ph-a">— From my own reflections</div>
+    </div>
+
+    <div class="rf">
+      <p>I don't have social media. That is intentional. I would rather be known for what I build and how I treat people than for a curated online presence. This website exists because I think there is value in sharing who you are honestly — but on your own terms, in your own space.</p>
+      <p>If any of this resonates, or if you just want to talk about philosophy, music, space, or what it means to live with purpose, I'm always open to a good conversation.</p>
+    </div>
+  </div>
+</section>
+
+<div class="w">
+  <a href="index.html" class="back">← Back to the work</a>
+</div>
+
+</div><!-- /page -->
+
 <footer>
-  <span>&copy; 2026 Kevin Williams. All rights reserved.</span>
+  <span>© 2026 Kevin Williams. All rights reserved.</span>
   <span>Built with purpose.</span>
 </footer>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
+/* THEME */
+function autoT(){const h=new Date().getHours();return(h>=7&&h<20)?'light':'dark';}
+function setT(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('kw-t',t);placePlanets();}
+setT(localStorage.getItem('kw-t')||autoT());
+document.getElementById('tog').addEventListener('click',()=>{setT(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');});
 
+/* HAMBURGER */
+const hbg=document.getElementById('hbg'),nl=document.getElementById('nl');
+hbg.addEventListener('click',()=>{hbg.classList.toggle('on');nl.classList.toggle('open');});
+nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hbg.classList.remove('on');nl.classList.remove('open');}));
+
+/* FADE IN */
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on');});},{threshold:.07,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fi').forEach(el=>io.observe(el));
+setTimeout(()=>document.querySelectorAll('.fi').forEach(el=>el.classList.add('on')),400);
+
+/* PLANETS */
+function makeSVG(type,size,op){
+  const s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox',`0 0 ${size} ${size}`);
+  s.setAttribute('width',size);s.setAttribute('height',size);s.setAttribute('overflow','visible');
+  s.style.cssText=`position:absolute;pointer-events:none;overflow:visible;opacity:${op};`;
+  const dk=document.documentElement.getAttribute('data-theme')==='dark';
+  const C={blue:dk?'#4a8ff5':'#3d7ce0',orange:dk?'#ff7d45':'#e0652a',green:dk?'#40e89a':'#18a05a',yellow:dk?'#ffcc44':'#d49010',purple:dk?'#a87dff':'#8040d8',red:dk?'#ff5566':'#d83040'};
+  const h=size/2,r=size*.47;
+  function el(tag,attrs){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e;}
+  if(type==='saturn-blue'){
+    const rc=C.blue,rr=r,ry=h+rr*.38;
+    s.appendChild(el('ellipse',{cx:h,cy:ry,rx:rr*1.38,ry:rr*.28,fill:'none',stroke:rc,'stroke-width':rr*.1,opacity:'.22'}));
+    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:rc,opacity:'.9'}));
+    s.appendChild(el('circle',{cx:h-rr*.28,cy:h-rr*.28,r:rr*.42,fill:'rgba(255,255,255,.07)'}));
+    s.appendChild(el('path',{d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,20,.22)'}));
+    s.appendChild(el('ellipse',{cx:h,cy:ry,rx:rr*1.38,ry:rr*.28,fill:'none',stroke:rc,'stroke-width':rr*.1,opacity:'.55','stroke-dasharray':`${rr*4.35} ${rr*4.6}`,'stroke-dashoffset':`${rr*2.3}`}));
+    const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.style.cssText=`transform-origin:${h}px ${h}px;animation:orb 10s linear infinite;transform-box:fill-box;`;
+    g.appendChild(el('circle',{cx:h+rr+rr*.6,cy:h-rr*.55,r:rr*.14,fill:C.green,opacity:'.9'}));
+    s.appendChild(g);
+  } else if(type==='saturn-purple'){
+    const rc=C.purple,rr=r,ry=h+rr*.38;
+    s.appendChild(el('ellipse',{cx:h,cy:ry,rx:rr*1.38,ry:rr*.27,fill:'none',stroke:rc,'stroke-width':rr*.09,opacity:'.3'}));
+    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:rc,opacity:'.85'}));
+    s.appendChild(el('circle',{cx:h-rr*.28,cy:h-rr*.28,r:rr*.38,fill:'rgba(255,255,255,.07)'}));
+    s.appendChild(el('path',{d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,0,.18)'}));
+    s.appendChild(el('ellipse',{cx:h,cy:ry,rx:rr*1.38,ry:rr*.27,fill:'none',stroke:rc,'stroke-width':rr*.08,opacity:'.55','stroke-dasharray':`${rr*4.35} ${rr*4.6}`,'stroke-dashoffset':`${rr*2.3}`}));
+  } else if(type==='orange'){
+    const rc=C.orange,rr=r;
+    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:rc,opacity:'.92'}));
+    s.appendChild(el('circle',{cx:h-rr*.28,cy:h-rr*.28,r:rr*.38,fill:'rgba(255,255,255,.07)'}));
+    s.appendChild(el('path',{d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,0,.2)'}));
+  } else if(type==='green'){
+    const rc=C.green,rr=r;
+    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:rc,opacity:'.88'}));
+    s.appendChild(el('circle',{cx:h-rr*.3,cy:h-rr*.3,r:rr*.34,fill:'rgba(255,255,255,.1)'}));
+    s.appendChild(el('path',{d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,0,.16)'}));
+  } else if(type==='yellow'){
+    const rc=C.yellow,rr=r;
+    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:rc,opacity:'.88'}));
+    s.appendChild(el('circle',{cx:h-rr*.3,cy:h-rr*.3,r:rr*.34,fill:'rgba(255,255,255,.1)'}));
+    s.appendChild(el('path',{d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,0,.15)'}));
+  } else if(type==='ghost-ring'){
+    const rc=C.blue,rr=r,ry=h+rr*.36;
+    s.appendChild(el('ellipse',{cx:h,cy:ry,rx:rr*1.35,ry:rr*.26,fill:'none',stroke:rc,'stroke-width':'2',opacity:'.4'}));
+    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:rc,opacity:'.12'}));
+    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:'none',stroke:rc,'stroke-width':'1.5',opacity:'.28'}));
+  }
+  return s;
+}
+
+function placePlanets(){
+  const pp=document.getElementById('pp');
+  pp.innerHTML='';
+  const page=document.getElementById('page');
+  const vw=window.innerWidth;
+  function yOf(sel,offset=0){
+    const el=document.querySelector(sel);
+    if(!el)return 200;
+    const r=el.getBoundingClientRect();
+    return r.top+scrollY+r.height/2+offset-page.getBoundingClientRect().top-scrollY;
+  }
+  const dk=document.documentElement.getAttribute('data-theme')==='dark';
+  const op=dk?1:0.55;
+  const anims={fa:'fa 5.5s ease infinite',fb:'fb 7s ease infinite 1.2s',fc:'fc 9s ease infinite 2.4s',fd:'fd 6.2s ease infinite 0.8s'};
+
+  // Deliberately sparse — this page is personal, not a showcase
+  const planets=[
+    // Header: Saturn right side, orange top-right
+    ['saturn-blue',  300, 0.80*op, 0.68, '.hdr',            -30, 'fa'],
+    ['orange',       160, 0.70*op, 0.92, '.hdr',           -220, 'fb'],
+    ['saturn-purple', 90, 0.60*op, 0.52, '.hdr',           -160, 'fc'],
+
+    // Pillars: yellow between cols, small ghost left
+    ['yellow',        76, 0.60*op, 0.46, '.g2',              30, 'fd'],
+    ['ghost-ring',   110, 0.35*op, 0.90, '.g2',             -20, 'fc'],
+
+    // Photo strip: small green above strip
+    ['green',         64, 0.55*op, 0.20, '.ps',             -60, 'fa'],
+
+    // Reflections: purple near philosophy block
+    ['saturn-purple', 80, 0.50*op, 0.88, '.ph-block',        20, 'fb'],
+    ['orange',        52, 0.45*op, 0.06, '.ph-block',        80, 'fd'],
+  ];
+
+  planets.forEach(([type,size,op2,xFrac,sel,yOff,anim])=>{
+    const y=yOf(sel,yOff);
+    const svg=makeSVG(type,size,op2);
+    svg.style.left=`${Math.round(vw*xFrac-size/2)}px`;
+    svg.style.top= `${Math.round(y-size/2)}px`;
+    svg.style.animation=anims[anim];
+    pp.appendChild(svg);
+  });
+}
+
+window.addEventListener('load',()=>placePlanets());
+window.addEventListener('resize',()=>placePlanets());
+
+/* CANVAS */
+(function(){
+  const cv=document.getElementById('cv'),cx=cv.getContext('2d');
+  let W,H,stars=[];
+  function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+  function mkS(){
+    stars=[];
+    const dk=document.documentElement.getAttribute('data-theme')==='dark';
+    const n=dk?Math.floor(W*H/2800):Math.floor(W*H/24000);
+    for(let i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.2,op:Math.random()*.5+.15,tw:Math.random()*Math.PI*2,ts:Math.random()*.007+.002});
+  }
+  function draw(){
+    cx.clearRect(0,0,W,H);
+    const dk=document.documentElement.getAttribute('data-theme')==='dark';
+    if(dk){
+      [[W*.78,H*.16,.42,'rgba(91,155,255,.052)'],[W*.1,H*.72,.34,'rgba(181,139,255,.042)']].forEach(([x,y,r,c])=>{
+        const g=cx.createRadialGradient(x,y,0,x,y,W*r);g.addColorStop(0,c);g.addColorStop(1,'transparent');cx.fillStyle=g;cx.fillRect(0,0,W,H);
+      });
+    }
+    stars.forEach(s=>{s.tw+=s.ts;const op=s.op*(.55+.45*Math.sin(s.tw));cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fillStyle=dk?`rgba(255,255,255,${op})`:`rgba(60,80,200,${op*.3})`;cx.fill();});
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{resize();mkS();});
+  new MutationObserver(()=>mkS()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  resize();mkS();draw();
+})();
+</script>
 </body>
 </html>
