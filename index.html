@@ -55,7 +55,6 @@
   .header {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 1.5rem;
     margin-bottom: 0.5rem;
   }
@@ -64,6 +63,7 @@
     height: 110px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: top;
     border: 2px solid var(--border);
   }
   .tagline {
@@ -232,9 +232,9 @@
 <div class="social">
   <a href="https://github.com/kevinjohnwilliams">GitHub</a>
   <a href="https://orcid.org/0009-0002-3308-3415">ORCID</a>
-  <a href="https://safetycriticallabs.com">Safety Critical Labs</a>
   <a href="resume.pdf">Resume</a>
-  <a href="/cdn-cgi/l/email-protection#ea818f9c8384809daa9f87838982c48f8e9f">Email</a>
+  <a href="#" id="email-toggle" onclick="document.getElementById('email-box').style.display='inline';this.style.display='none';return false;">Email</a>
+  <span id="email-box" style="display:none;font-family:'DM Mono',monospace;font-size:0.85rem;background:var(--card);border:1px solid var(--border);border-radius:3px;padding:0.2em 0.6em;color:var(--fg-bright);user-select:all;">kevinjw@umich.edu</span>
 </div>
 
 <hr>
@@ -457,6 +457,6 @@
   a curated presence.
 </p>
 
-<div class="footer">
-  <hr>
-  <p>0 frameworks were used to make th
+
+</body>
+</html>
