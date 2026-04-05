@@ -1,588 +1,467 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kevin Williams | Engineer & AI Researcher</title>
-  <meta name="description" content="Kevin Williams is an engineer and AI researcher at NASA.">
-  <link rel="canonical" href="https://kevinjwilliams.com/">
-  <meta name="author" content="Kevin John Williams">
-  <meta name="robots" content="index, follow">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    :root { --tr: background 0.6s ease, color 0.6s ease, border-color 0.4s ease; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kevin Williams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    [data-theme="dark"] {
-      --bg:  #05061a; --bgc: #090b24; --bgs: #0d1030;
-      --tx:  #e8eaf6; --tx2: #7880a8; --tx3: #3d4468;
-      --bd:  rgba(255,255,255,0.065); --bdh: rgba(91,155,255,0.42);
-      --ac:  #5b9bff; --acd: rgba(91,155,255,0.1);
-      --or:  #ff8c5b; --gn:  #4dffa8; --yl: #ffd166; --pu: #b58bff;
-      --nav: rgba(5,6,26,0.92);
-      --pb: #4a8ff5; --po: #ff7d45; --pg: #40e89a;
-      --py: #ffcc44; --pp: #a87dff; --pr: #ff5566;
-    }
-    [data-theme="light"] {
-      --bg:  #f0f2ff; --bgc: #ffffff; --bgs: #e8ebfc;
-      --tx:  #090e2e; --tx2: #4a527a; --tx3: #9298b8;
-      --bd:  rgba(0,10,80,0.08); --bdh: rgba(45,100,220,0.42);
-      --ac:  #2d64dc; --acd: rgba(45,100,220,0.09);
-      --or:  #e8602d; --gn:  #15a85e; --yl: #c8850e; --pu: #7c40e8;
-      --nav: rgba(240,242,255,0.93);
-      --pb: #3d7ce0; --po: #e0652a; --pg: #18a05a;
-      --py: #d49010; --pp: #8040d8; --pr: #d83040;
-    }
+  :root {
+    --bg: #fafafa;
+    --fg: #374151;
+    --fg-dim: #6b7280;
+    --fg-bright: #111827;
+    --accent: #2563eb;
+    --accent-dim: #1d4ed8;
+    --border: #e5e7eb;
+    --card: #f3f4f6;
+  }
 
-    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--tx); overflow-x:hidden; line-height:1.6; transition:var(--tr); }
+  html { font-size: 17px; }
 
-    #cv { position:fixed; inset:0; pointer-events:none; z-index:0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.7;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+  }
 
-    /* Planets — fixed to viewport so they scroll with page naturally via absolute in .page-planets */
-    .page-planets { position:absolute; top:0; left:0; width:100%; pointer-events:none; z-index:1; }
-    .pl { position:absolute; pointer-events:none; overflow:visible; }
-    [data-theme="dark"]  .pl { --pop: 1; }
-    [data-theme="light"] .pl { --pop: 0.55; }
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  a:hover { border-bottom-color: var(--accent); }
 
-    @keyframes fa { 0%,100%{transform:translateY(0)}       50%{transform:translateY(-14px)} }
-    @keyframes fb { 0%,100%{transform:translateY(0)}       50%{transform:translateY(-20px)} }
-    @keyframes fc { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-11px) rotate(3deg)} }
-    @keyframes fd { 0%,100%{transform:translateY(0)}       50%{transform:translateY(-17px)} }
-    @keyframes orb { from{transform:rotate(0deg) translateX(94px)} to{transform:rotate(360deg) translateX(94px)} }
-    .fa { animation:fa 5.5s ease infinite; }
-    .fb { animation:fb 7s ease infinite 1.2s; }
-    .fc { animation:fc 9s ease infinite 2.4s; }
-    .fd { animation:fd 6.2s ease infinite 0.8s; }
+  h1, h2, h3 { font-family: 'Syne', sans-serif; color: var(--fg-bright); }
+  h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.1rem; font-weight: 600; color: var(--fg-dim); margin-bottom: 1.5rem; }
 
-    /* NAV */
-    nav { position:fixed; top:0; left:0; right:0; z-index:500; height:60px; padding:0 2.5rem; display:flex; align-items:center; justify-content:space-between; background:var(--nav); backdrop-filter:blur(20px); border-bottom:1px solid var(--bd); transition:var(--tr); }
-    .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; color:var(--ac); text-decoration:none; display:flex; align-items:center; gap:.5rem; }
-    .dot  { width:7px; height:7px; border-radius:50%; background:var(--gn); box-shadow:0 0 8px var(--gn); animation:pulse 2s ease infinite; }
-    @keyframes pulse { 0%,100%{opacity:.45} 50%{opacity:1} }
-    .nr { display:flex; align-items:center; gap:1.2rem; }
-    .nl { display:flex; gap:1.4rem; list-style:none; }
-    .nl a { font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--tx2); text-decoration:none; transition:color .2s; }
-    .nl a:hover,.nl a.on { color:var(--ac); }
-    .nl a.bx { color:var(--or); }
-    .nl a.bx:hover { color:var(--ac); }
-    .tog { width:36px; height:20px; border-radius:10px; background:var(--bgs); border:1px solid var(--bd); cursor:pointer; position:relative; flex-shrink:0; }
-    .tog::after { content:''; position:absolute; top:3px; left:3px; width:12px; height:12px; border-radius:50%; background:var(--ac); transition:transform .3s; }
-    [data-theme="light"] .tog::after { transform:translateX(16px); }
+  code, .mono { font-family: 'DM Mono', monospace; font-size: 0.85rem; }
 
-    /* LAYOUT */
-    .page { position:relative; } /* contains .page-planets */
-    .w  { max-width:1040px; margin:0 auto; padding:0 2.5rem; position:relative; z-index:2; }
-    .dv { height:1px; background:var(--bd); position:relative; z-index:2; }
-    section { padding:5.5rem 0; position:relative; z-index:2; }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
 
-    /* LABELS */
-    .lb { font-family:'DM Mono',monospace; font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ac); margin-bottom:.6rem; display:flex; align-items:center; gap:.5rem; }
-    .lb::before { content:'//'; color:var(--tx3); }
-    .tt { font-family:'Syne',sans-serif; font-weight:700; font-size:clamp(1.7rem,3vw,2.4rem); letter-spacing:-.02em; margin-bottom:1rem; }
-    .in { font-size:1rem; color:var(--tx2); line-height:1.75; max-width:600px; margin-bottom:2.5rem; font-weight:300; }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .header img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+  }
+  .tagline {
+    font-size: 1rem;
+    color: var(--fg-dim);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  .social {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+  }
+  .social a { color: var(--fg-dim); }
+  .social a:hover { color: var(--accent); }
 
-    /* HERO */
-    .hero { min-height:100vh; display:flex; align-items:center; padding-top:60px; }
-    .ht  { position:relative; z-index:10; max-width:560px; padding:4rem 0; }
-    .ey  { font-family:'DM Mono',monospace; font-size:.67rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ac); margin-bottom:1.2rem; display:flex; align-items:center; gap:.5rem; opacity:0; animation:fu .7s ease forwards .15s; }
-    .ey::before { content:'//'; color:var(--tx3); }
-    h1   { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(2.6rem,5.5vw,4.2rem); line-height:1.02; letter-spacing:-.035em; margin-bottom:1.5rem; opacity:0; animation:fu .7s ease forwards .3s; }
-    h1 .hl { background:linear-gradient(120deg,var(--ac),var(--pu)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .sb  { font-size:1.05rem; font-weight:300; color:var(--tx2); line-height:1.75; margin-bottom:2rem; max-width:440px; opacity:0; animation:fu .7s ease forwards .45s; }
-    .ca  { display:flex; gap:.8rem; opacity:0; animation:fu .7s ease forwards .6s; }
-    .btn { padding:.72rem 1.7rem; font-family:'DM Mono',monospace; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; border:1px solid var(--bd); color:var(--tx); background:transparent; cursor:pointer; transition:all .25s; border-radius:4px; display:inline-block; }
-    .btn:hover { border-color:var(--ac); color:var(--ac); box-shadow:0 0 24px var(--acd); }
-    .btn.p { background:var(--ac); color:var(--bg); border-color:var(--ac); font-weight:500; }
-    .btn.p:hover { background:transparent; color:var(--ac); }
+  .timeline-entry {
+    margin-bottom: 2.2rem;
+  }
+  .timeline-entry .period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--fg-dim);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.3rem;
+  }
+  .timeline-entry h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-entry .org {
+    color: var(--fg-dim);
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+  .timeline-entry p {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .timeline-entry .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.15em 0.5em;
+    margin: 0.4rem 0.3rem 0 0;
+  }
 
-    /* CARDS */
-    .g3  { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
-    .g2  { display:grid; grid-template-columns:repeat(2,1fr); gap:1.2rem; }
-    .cd  { padding:1.8rem 1.6rem; border:1px solid var(--bd); background:var(--bgc); border-radius:8px; transition:all .3s; position:relative; overflow:hidden; }
-    .cd::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--ac),var(--pu)); opacity:0; transition:opacity .3s; }
-    .cd:hover  { border-color:var(--bdh); transform:translateY(-4px); box-shadow:0 16px 48px var(--acd); }
-    .cd:hover::after { opacity:1; }
-    .cn  { font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:var(--ac); opacity:.18; line-height:1; margin-bottom:.8rem; }
-    .cp  { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.06em; text-transform:uppercase; color:var(--or); margin-bottom:.5rem; }
-    .cd h3 { font-family:'Syne',sans-serif; font-weight:700; font-size:.98rem; margin-bottom:.6rem; line-height:1.35; }
-    .cd p  { font-size:.87rem; color:var(--tx2); line-height:1.72; font-weight:300; }
-    .cts { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1rem; }
-    .ct  { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.04em; padding:.22rem .55rem; border:1px solid var(--acd); color:var(--ac); border-radius:3px; text-transform:uppercase; }
-    .pl2 { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.07em; text-transform:uppercase; color:var(--or); margin-bottom:.4rem; }
-    .pn  { font-family:'Syne',sans-serif; font-weight:700; font-size:1.1rem; margin-bottom:.5rem; }
-    .pd  { font-size:.86rem; color:var(--tx2); line-height:1.65; font-weight:300; margin-bottom:1rem; }
-    .tgs { display:flex; flex-wrap:wrap; gap:.4rem; }
-    .tg  { font-family:'DM Mono',monospace; font-size:.58rem; padding:.2rem .5rem; border:1px solid var(--bd); color:var(--tx3); border-radius:3px; text-transform:uppercase; }
+  .featured {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 4px;
+    margin-bottom: 2.5rem;
+  }
+  .featured .period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.3rem;
+  }
+  .featured h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.2rem;
+  }
+  .featured .org {
+    color: var(--fg-dim);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  .featured p {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
 
-    /* PATH */
-    .pg2 { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
-    .ph  { width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center bottom; border:1px solid var(--bd); border-radius:8px; filter:grayscale(15%); transition:filter .4s; }
-    .ph:hover { filter:grayscale(0%); }
-    .eg  { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.2rem; }
-    .ec  { padding:1.2rem 1.4rem; border:1px solid var(--bd); background:var(--bgc); border-radius:8px; }
-    .ed  { font-family:'Syne',sans-serif; font-weight:700; font-size:.95rem; }
-    .es  { font-size:.82rem; color:var(--ac); margin:.2rem 0; }
-    .ey2 { font-size:.7rem; color:var(--tx3); }
-    .en  { font-size:.7rem; color:var(--tx3); margin-top:.4rem; }
-    .en a { color:var(--ac); text-decoration:none; }
-    .tl  { position:relative; padding-left:1.8rem; }
-    .tl::before { content:''; position:absolute; left:0; top:8px; bottom:0; width:1px; background:linear-gradient(to bottom,var(--ac),transparent); }
-    .ti  { position:relative; margin-bottom:2rem; }
-    .ti::before { content:''; position:absolute; left:-1.8rem; top:6px; width:7px; height:7px; border:1.5px solid var(--ac); background:var(--bg); transform:rotate(45deg); }
-    .td  { font-family:'DM Mono',monospace; font-size:.63rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ac); margin-bottom:.2rem; }
-    .tr  { font-family:'Syne',sans-serif; font-weight:700; font-size:.98rem; }
-    .to  { font-size:.8rem; color:var(--tx2); margin-bottom:.35rem; }
-    .tx4 { font-size:.82rem; color:var(--tx3); line-height:1.6; font-weight:300; }
+  .section-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.5rem;
+  }
 
-    /* SKILLS */
-    .sk  { display:flex; flex-direction:column; gap:1rem; }
-    .sb2 { padding:1.2rem 1.5rem; border:1px solid var(--bd); background:var(--bgc); border-radius:8px; display:grid; grid-template-columns:150px 1fr; gap:1.5rem; align-items:center; }
-    .sl  { font-family:'DM Mono',monospace; font-size:.63rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ac); }
-    .sps { display:flex; flex-wrap:wrap; gap:.5rem; }
-    .sp  { font-size:.8rem; font-weight:300; color:var(--tx2); padding:.25rem .7rem; background:var(--bgs); border:1px solid var(--bd); border-radius:3px; }
+  .project {
+    margin-bottom: 1.8rem;
+  }
+  .project h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .project p {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
 
-    /* CREDS */
-    .cg  { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
-    .cc h3 { font-family:'DM Mono',monospace; font-size:.63rem; letter-spacing:.13em; text-transform:uppercase; color:var(--tx3); margin-bottom:1rem; padding-bottom:.5rem; border-bottom:1px solid var(--bd); }
-    .ar  { display:flex; align-items:flex-start; gap:1rem; padding:1rem 1.2rem; border:1px solid var(--bd); background:var(--bgc); border-radius:8px; margin-bottom:.8rem; }
-    .ab  { width:38px; height:38px; flex-shrink:0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; font-size:.6rem; letter-spacing:.04em; }
-    .ab.b1 { background:radial-gradient(circle at 35% 35%,#3a5a9a,#0e1a3a); border:1px solid rgba(91,155,255,.3); color:#9bbeff; }
-    .ab.b2 { background:radial-gradient(circle at 35% 35%,#8a4018,#2a1005); border:1px solid rgba(255,140,91,.3); color:#ffb080; }
-    .an  { font-family:'Syne',sans-serif; font-weight:600; font-size:.88rem; }
-    .ao  { font-size:.74rem; color:var(--tx3); margin-top:.1rem; }
-    .pub { padding:1.2rem 1.4rem; border:1px solid var(--bd); background:var(--bgc); border-radius:8px; text-decoration:none; color:inherit; display:block; transition:all .3s; margin-bottom:.8rem; }
-    .pub:hover { border-color:var(--ac); transform:translateY(-2px); box-shadow:0 6px 24px var(--acd); }
-    .pt  { font-family:'DM Mono',monospace; font-size:.57rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ac); margin-bottom:.4rem; }
-    .pi  { font-size:.87rem; font-style:italic; line-height:1.5; margin-bottom:.3rem; }
-    .pm  { font-size:.7rem; color:var(--tx3); }
-    .cl2 { display:flex; flex-direction:column; gap:.6rem; }
-    .cr  { display:flex; align-items:center; gap:.8rem; padding:.85rem 1rem; border:1px solid var(--bd); background:var(--bgc); border-radius:8px; text-decoration:none; color:inherit; transition:all .25s; }
-    .cr:hover { border-color:var(--ac); box-shadow:0 4px 20px var(--acd); }
-    .dz  { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-    .dz.d1{background:var(--ac);box-shadow:0 0 5px var(--ac)}
-    .dz.d2{background:var(--pu);box-shadow:0 0 5px var(--pu)}
-    .dz.d3{background:var(--or);box-shadow:0 0 5px var(--or)}
-    .dz.d4{background:var(--gn);box-shadow:0 0 5px var(--gn)}
-    .dz.d5{background:var(--yl);box-shadow:0 0 5px var(--yl)}
-    .cn2 { font-family:'Syne',sans-serif; font-size:.8rem; font-weight:600; line-height:1.3; }
-    .ci  { font-size:.67rem; color:var(--tx3); }
+  .pub {
+    margin-bottom: 1.2rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .pub .venue {
+    color: var(--fg-dim);
+    font-size: 0.82rem;
+  }
 
-    /* CONTACT */
-    .con { text-align:center; padding:5rem 0 6rem; }
-    .ctt { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(2rem,4vw,3.2rem); letter-spacing:-.03em; margin-bottom:.7rem; }
-    .csu { font-size:1rem; color:var(--tx2); font-weight:300; margin-bottom:2rem; }
-    .cln { display:flex; justify-content:center; gap:.8rem; flex-wrap:wrap; }
-    .cl3 { padding:.72rem 1.6rem; font-family:'DM Mono',monospace; font-size:.7rem; letter-spacing:.07em; text-transform:uppercase; text-decoration:none; border:1px solid var(--bd); color:var(--tx); transition:all .25s; border-radius:4px; }
-    .cl3:hover { border-color:var(--ac); color:var(--ac); box-shadow:0 0 20px var(--acd); }
+  .award {
+    margin-bottom: 0.8rem;
+    font-size: 0.92rem;
+  }
+  .award span { color: var(--fg-dim); font-size: 0.85rem; }
 
-    footer { padding:1.5rem 2.5rem; border-top:1px solid var(--bd); display:flex; justify-content:space-between; align-items:center; font-family:'DM Mono',monospace; font-size:.63rem; color:var(--tx3); position:relative; z-index:2; }
+  .edu {
+    margin-bottom: 1rem;
+  }
+  .edu h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+  }
+  .edu .details {
+    font-size: 0.9rem;
+    color: var(--fg-dim);
+  }
 
-    @keyframes fu { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
-    .fi { opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s ease; }
-    .fi.on { opacity:1; transform:translateY(0); }
+  .footer {
+    margin-top: 3rem;
+    font-size: 0.8rem;
+    color: var(--fg-dim);
+  }
 
-    .hbg { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
-    .hbg span { display:block; width:20px; height:2px; background:var(--tx2); transition:all .3s; }
-    .hbg.on span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-    .hbg.on span:nth-child(2){opacity:0}
-    .hbg.on span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-
-    @media(max-width:900px){.g3,.pg2,.cg{grid-template-columns:1fr}.g2{grid-template-columns:1fr}}
-    @media(max-width:768px){
-      nav{padding:0 1.5rem}.hbg{display:flex}
-      .nl{position:fixed;top:0;right:-100%;width:70%;height:100vh;flex-direction:column;background:var(--bgc);padding:5rem 2rem 2rem;gap:1.5rem;transition:right .3s;border-left:1px solid var(--bd);z-index:499}
-      .nl.open{right:0}.nl a{font-size:.85rem}.w{padding:0 1.5rem}
-      .sb2{grid-template-columns:1fr;gap:.7rem}
-      footer{flex-direction:column;gap:.5rem;text-align:center}
-      .eg{grid-template-columns:1fr}.cln{flex-direction:column;align-items:center}.ca{flex-direction:column;align-items:flex-start}
-    }
-  </style>
+  @media (max-width: 500px) {
+    html { font-size: 16px; }
+    .header { flex-direction: column; text-align: center; }
+    .social { justify-content: center; }
+    body { padding: 2.5rem 1.2rem 4rem; }
+  }
+</style>
 </head>
 <body>
-<canvas id="cv"></canvas>
 
-<!-- NAV -->
-<nav>
-  <a href="index.html" class="logo"><span class="dot"></span> KW</a>
-  <div class="nr">
-    <button class="hbg" id="hbg"><span></span><span></span><span></span></button>
-    <ul class="nl" id="nl">
-      <li><a href="#why">Why</a></li><li><a href="#work">Work</a></li>
-      <li><a href="#path">Path</a></li><li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="beyond.html" class="bx">Beyond</a></li>
-    </ul>
-    <button class="tog" id="tog"></button>
+<!-- Header -->
+<div class="header">
+  <img src="images/esa.jpeg" alt="Kevin Williams">
+  <div>
+    <h1>Kevin Williams</h1>
+    <h2>Engineer &amp; AI Researcher</h2>
   </div>
-</nav>
+</div>
 
-<!-- ═══════════════════════════════════════
-     PLANET LAYER — absolute to .page
-     All Y positions are in px from top of page.
-     Planets sit at z-index:1 (below cards z:2,
-     above canvas z:0). High opacity so they read.
-════════════════════════════════════════ -->
-<div class="page" id="page">
-<div class="page-planets" id="pp"></div>
+<p class="tagline">
+  I find problems worth solving and build what's needed to solve them.
+  Systems engineer and AI researcher, currently building
+  <a href="https://safetycriticallabs.com">Safety Critical Labs</a>
+  and working on human spaceflight systems at NASA JSC.
+</p>
 
-<!-- ══ HERO ══ -->
-<section class="hero">
-  <div class="w" style="width:100%">
-    <div class="ht">
-      <div class="ey">Engineer &middot; Researcher &middot; Problem-Solver</div>
-      <h1>I find problems<br><span class="hl">worth solving</span><br>and build teams<br>to solve them.</h1>
-      <p class="sb">Kevin Williams — software engineer and AI researcher at NASA. I don't start with a technology. I start with a problem that matters.</p>
-      <div class="ca">
-        <a href="#why" class="btn p">See What Drives Me</a>
-        <a href="#contact" class="btn">Get in Touch</a>
-      </div>
-    </div>
+<div class="social">
+  <a href="https://github.com/kevinjohnwilliams">GitHub</a>
+  <a href="https://orcid.org/0009-0002-3308-3415">ORCID</a>
+  <a href="https://safetycriticallabs.com">Safety Critical Labs</a>
+  <a href="resume.pdf">Resume</a>
+  <a href="mailto:kevinjw@umich.edu">Email</a>
+</div>
+
+<hr>
+
+<!-- Safety Critical Labs — Featured -->
+<div class="featured">
+  <div class="period">2025 — present</div>
+  <h3>Founder — <a href="https://safetycriticallabs.com">Safety Critical Labs</a></h3>
+  <div class="org">Independent AI Certification Authority</div>
+  <p>
+    Building the certification authority for AI in safety-critical systems — modeled after
+    UL and ISO 9001, not consulting. The core product is the
+    <a href="https://doi.org/10.5281/zenodo.19323435">AI Requirements Framework</a>,
+    an open standard addressing failure modes that existing standards
+    (NPR&nbsp;7150.2D, ISO/IEC&nbsp;5338, ECSS-E-ST-40C) don't cover: bias detection,
+    hallucination prevention, continuous validation, and human-AI teaming for
+    human-rated spacecraft. Pursuing ISO/IEC&nbsp;17065 accreditation.
+  </p>
+  <div>
+    <span class="tag">AI Safety</span>
+    <span class="tag">Certification</span>
+    <span class="tag">Human Spaceflight</span>
+    <span class="tag">Standards</span>
   </div>
-</section>
+</div>
 
-<div class="dv"></div>
+<!-- Experience -->
+<div class="section-title">Experience</div>
 
-<!-- ══ WHY ══ -->
-<section id="why" class="fi">
-  <div class="w">
-    <div class="lb">01 — Why I Do This</div>
-    <h2 class="tt">Conviction First, Technology Second</h2>
-    <p class="in">Every project starts the same way. I see something broken, something hurting people, and I can't look away. The tools change. The reason never does.</p>
-    <div class="g3">
-      <div class="cd"><div class="cn">01</div><div class="cp">An opioid crisis destroying communities</div><h3>Building a Case for Safer Alternatives</h3><p>I watched oxycontin tear through communities. When I got the chance to research at Michigan, I chose electrochemical THC detection — not because biosensing was trendy, but to build the scientific foundation for cannabis as a testable alternative to opioids. Give people a safer option and give society the tools to manage it.</p><div class="cts"><span class="ct">Published Research</span><span class="ct">0.13 μM LOD</span></div></div>
-      <div class="cd"><div class="cn">02</div><div class="cp">AI repeating social media's mistakes</div><h3>Making AI a Net Positive for Humanity</h3><p>Social media promised connection and optimized for addiction instead. I see AI at the same crossroads. That's why I moved into AI safety and certification at NASA — not to slow AI down, but to build frameworks that make AI on a spacecraft carrying humans actually earn the trust we place in it.</p><div class="cts"><span class="ct">NASA Silver Bear Award</span><span class="ct">NPR 7150.2D</span></div></div>
-      <div class="cd"><div class="cn">03</div><div class="cp">Legacy systems slowing human spaceflight</div><h3>Replacing Bureaucratic Friction with Real Tools</h3><p>At NASA, teams wrestled with SharePoint workflows never designed for spaceflight complexity. Data was scattered, processes were manual. So I built Cortex — not because I love enterprise software, but because people doing the hardest work in aerospace deserved better tools.</p><div class="cts"><span class="ct">Cortex Platform</span><span class="ct">~20 hrs/wk Saved</span></div></div>
-    </div>
+<div class="timeline-entry">
+  <div class="period">Jan 2026 — present · Oct 2023 — Feb 2025</div>
+  <h3>Systems Engineer</h3>
+  <div class="org">Barrios Technology → NASA Johnson Space Center</div>
+  <p>
+    Developing, reviewing, and verifying systems engineering requirements across ISS, Orion,
+    and the Commercial Lunar Delivery Program (CLDP), including interface and safety
+    requirements for commercial partner integration. Integrated AI requirements framework
+    into CLDP, establishing evaluation criteria for autonomous systems in safety-critical
+    human spaceflight environments. Defining data architecture for the Extravehicular Activity
+    and Human Surface Mobility Program (EHP). Coordinating with commercial partners including
+    Axiom Space on requirements alignment and NASA human spaceflight safety compliance.
+  </p>
+  <div>
+    <span class="tag">NPR 7123</span>
+    <span class="tag">NPR 7150.2</span>
+    <span class="tag">MBSE</span>
+    <span class="tag">V&amp;V</span>
+    <span class="tag">CLDP</span>
   </div>
-</section>
+</div>
 
-<div class="dv"></div>
-
-<!-- ══ WORK ══ -->
-<section id="work" class="fi">
-  <div class="w">
-    <div class="lb">02 — The Work</div>
-    <h2 class="tt">Problems I've Tackled</h2>
-    <div class="g2">
-      <div class="cd"><div class="pl2">Spaceflight ops bottleneck</div><div class="pn">Cortex Platform</div><div class="pd">Django-based enterprise platform with EAV architecture replacing scattered SharePoint workflows for NASA human spaceflight ops. Non-technical users define custom data structures; automated pipelines turn unstructured inputs into validated data.</div><div class="tgs"><span class="tg">Django</span><span class="tg">Python</span><span class="tg">EAV</span><span class="tg">Flutter</span></div></div>
-      <div class="cd"><div class="pl2">No safety standards for AI in space</div><div class="pn">AI Certification Framework</div><div class="pd">First-generation certification framework for AI on human-rated spacecraft. Addresses bias detection, continuous validation, hallucination prevention, and human-AI teaming. Guiding AI deployment across Artemis mission elements.</div><div class="tgs"><span class="tg">AI Safety</span><span class="tg">NPR 7150.2D</span><span class="tg">V&V</span><span class="tg">Governance</span></div></div>
-      <div class="cd"><div class="pl2">Astronaut monitoring vs. privacy</div><div class="pn">Cognitive Twin System</div><div class="pd">Privacy-preserving cognitive readiness prediction for astronaut monitoring. Implemented differential privacy and defended against membership inference attacks. Monitoring health shouldn't mean sacrificing privacy.</div><div class="tgs"><span class="tg">ML</span><span class="tg">Differential Privacy</span><span class="tg">Biosignals</span></div></div>
-      <div class="cd"><div class="pl2">Opioid crisis needed alternatives</div><div class="pn">Electrochemical THC Detection</div><div class="pd">Published research on Δ9-THC detection achieving 0.13 μM LOD — third-lowest among comparable devices. Built to support responsible cannabis legalization as an opioid alternative.</div><div class="tgs"><span class="tg">Research</span><span class="tg">Electrochemistry</span><span class="tg">Publication</span></div></div>
-      <div class="cd"><div class="pl2">90% of inspection time was manual</div><div class="pn">Deep Learning Quality System</div><div class="pd">At Ford, deployed deep learning for automated quality decisions in eMotor manufacturing. Reduced manual inspection by ~90%. AI frees people to do higher-value work.</div><div class="tgs"><span class="tg">Deep Learning</span><span class="tg">Manufacturing</span><span class="tg">Ford</span></div></div>
-    </div>
+<div class="timeline-entry">
+  <div class="period">Feb 2025 — Dec 2025</div>
+  <h3>Software Engineer</h3>
+  <div class="org">Barrios Technology</div>
+  <p>
+    Architected and deployed Cortex, a unified enterprise data platform with integrated LLM
+    capabilities for Intuitive Machines, replacing fragmented workflows with a single interface
+    for document management, data retrieval, and cross-team collaboration. Developed
+    cross-platform Flutter application for KULR Technologies automating report generation
+    and operational workflows.
+  </p>
+  <div>
+    <span class="tag">Django</span>
+    <span class="tag">Python</span>
+    <span class="tag">Flutter</span>
+    <span class="tag">LLMs</span>
   </div>
-</section>
+</div>
 
-<div class="dv"></div>
-
-<!-- ══ PATH ══ -->
-<section id="path" class="fi">
-  <div class="w">
-    <div class="lb">03 — The Path</div>
-    <h2 class="tt">How I Got Here</h2>
-    <div class="pg2">
-      <div>
-        <img src="images/jsc.jpeg" alt="Kevin at NASA Johnson Space Center" class="ph">
-        <div class="eg">
-          <div class="ec"><div class="ed">M.S. Artificial Intelligence</div><div class="es">University of Michigan</div><div class="ey2">Expected May 2026</div></div>
-          <div class="ec"><div class="ed">B.S. Mechanical Engineering</div><div class="es">University of Michigan</div><div class="ey2">2021</div><div class="en"><a href="https://me.engin.umich.edu/me150/make-your-mark/share-your-story/" target="_blank" rel="noopener">Featured in U-M ME150 ↗</a></div></div>
-        </div>
-      </div>
-      <div class="tl">
-        <div class="ti"><div class="td">2025 — Present</div><div class="tr">Software Engineer</div><div class="to">Barrios Technology → NASA JSC</div><div class="tx4">Architecting Cortex, building intelligent automation pipelines and cross-platform applications for human spaceflight operations.</div></div>
-        <div class="ti"><div class="td">2023 — 2025</div><div class="tr">AI System Engineer, Human Space Flight</div><div class="to">NASA Johnson Space Center</div><div class="tx4">Pioneered AI certification frameworks for human-rated spacecraft. Requirements traceability and governance for Artemis and commercial crew.</div></div>
-        <div class="ti"><div class="td">2022 — 2023</div><div class="tr">Engineering Specialist</div><div class="to">Ford Motor Company</div><div class="tx4">Led 20-person eMotor materials lab. Deep learning for automated quality, cutting manual inspection ~90%. Technical Excellence Award.</div></div>
-        <div class="ti"><div class="td">2012 — 2017</div><div class="tr">Materials & Chemical Technician</div><div class="to">Hyundai-Kia · GM · Quaker Chemicals</div><div class="tx4">Where it started. Metallurgical analysis, quality testing, built GM's Flint Engine met lab from scratch.</div></div>
-      </div>
-    </div>
+<div class="timeline-entry">
+  <div class="period">Jun 2022 — Sep 2023</div>
+  <h3>Engineering Specialist</h3>
+  <div class="org">Ford Motor Company</div>
+  <p>
+    Led 20-person eMotor materials laboratory — metallurgical cross-sectioning, microscopy,
+    hardness, and tensile testing to characterize materials and qualify components for
+    electrified powertrain programs. Conducted failure analysis and root cause investigations,
+    contributing to DFMEA/PFMEA processes. Designed test fixtures and measurement systems
+    using CAD with GD&amp;T. Developed automated inspection systems feeding quantitative data
+    back into design reviews.
+  </p>
+  <div>
+    <span class="tag">Materials</span>
+    <span class="tag">Deep Learning</span>
+    <span class="tag">Failure Analysis</span>
+    <span class="tag">CAD/GD&amp;T</span>
   </div>
-</section>
+</div>
 
-<div class="dv"></div>
-
-<!-- ══ SKILLS ══ -->
-<section id="skills" class="fi">
-  <div class="w">
-    <div class="lb">04 — Toolkit</div>
-    <h2 class="tt">What I Bring to the Table</h2>
-    <div class="sk">
-      <div class="sb2"><div class="sl">Software & Systems</div><div class="sps"><span class="sp">Python / Django</span><span class="sp">JavaScript / Flutter</span><span class="sp">SQL / PostgreSQL</span><span class="sp">REST APIs / AWS</span><span class="sp">Git</span></div></div>
-      <div class="sb2"><div class="sl">AI & ML</div><div class="sps"><span class="sp">PyTorch / TensorFlow</span><span class="sp">LLMs / RAG / Transformers</span><span class="sp">Differential Privacy</span><span class="sp">AI Safety & Certification</span><span class="sp">LangChain / Vector DBs</span></div></div>
-      <div class="sb2"><div class="sl">Engineering</div><div class="sps"><span class="sp">NASA Systems Engineering</span><span class="sp">Requirements Traceability</span><span class="sp">MBSE / V&V Lifecycle</span><span class="sp">Black Belt Six Sigma</span><span class="sp">Cross-functional Lead</span></div></div>
-    </div>
+<div class="timeline-entry">
+  <div class="period">Sep 2019 — Jun 2022</div>
+  <h3>Research Assistant</h3>
+  <div class="org">University of Michigan</div>
+  <p>
+    Developed novel electrochemical detection method for Δ9-THC (1–20&nbsp;μM) achieving
+    0.13&nbsp;μM limit of detection with R²&nbsp;=&nbsp;0.995, third-lowest detection limit
+    among comparable SPCE devices. Published peer-reviewed findings demonstrating viability
+    for in-field applications.
+  </p>
+  <div>
+    <span class="tag">Electrochemistry</span>
+    <span class="tag">Biosensing</span>
+    <span class="tag">Publication</span>
   </div>
-</section>
+</div>
 
-<div class="dv"></div>
+<div class="timeline-entry">
+  <div class="period">2012 — 2017</div>
+  <h3>Materials &amp; Chemical Technician</h3>
+  <div class="org">Hyundai-Kia · General Motors · Quaker Chemicals</div>
+  <p>
+    Metallurgical analysis, material validation, and quality testing across automotive OEMs.
+    Established GM Flint Engine metallurgical lab. Led supplier corrective actions at
+    Hyundai-Kia. Trained personnel on QA protocols.
+  </p>
+</div>
 
-<!-- ══ CREDENTIALS ══ -->
-<section id="creds" class="fi">
-  <div class="w">
-    <div class="lb">05 — Recognition & Credentials</div>
-    <h2 class="tt">Awards & Credentials</h2>
-    <div class="cg">
-      <div class="cc">
-        <h3>Awards</h3>
-        <div class="ar"><div class="ab b1">JSC</div><div><div class="an">NASA Silver Bear Award</div><div class="ao">Certification of AI on Human-Rated Space Flight Systems</div></div></div>
-        <div class="ar"><div class="ab b2">FMC</div><div><div class="an">Ford Technical Excellence Award</div><div class="ao">Deep Learning for Quality Decisions</div></div></div>
-        <h3 style="margin-top:1.8rem;">Publication</h3>
-        <a href="/papers/thc-detection.pdf" target="_blank" class="pub">
-          <div class="pt">Peer-Reviewed Research</div>
-          <div class="pi">Differential pulsed voltammetry of Δ9-THC on disposable screen-printed carbon electrodes</div>
-          <div class="pm">2023 · University of Michigan · ↗ View Paper</div>
-        </a>
-      </div>
-      <div class="cc">
-        <h3>Certifications</h3>
-        <div class="cl2">
-          <a href="/certs/systems-engineering.pdf" target="_blank" class="cr"><div class="dz d1"></div><div><div class="cn2">Systems Engineering: Principles & Design Process</div><div class="ci">NASA · Feb 2024</div></div></a>
-          <a href="/certs/aws-data.pdf"            target="_blank" class="cr"><div class="dz d2"></div><div><div class="cn2">AWS: Data Silos, Lakes & Streams</div><div class="ci">NASA · Feb 2024</div></div></a>
-          <a href="/certs/computer-vision.pdf"     target="_blank" class="cr"><div class="dz d3"></div><div><div class="cn2">AI & Computer Vision</div><div class="ci">NASA · Oct 2023</div></div></a>
-          <a href="/certs/agile.pdf"               target="_blank" class="cr"><div class="dz d4"></div><div><div class="cn2">Agile: Key Exam Concepts</div><div class="ci">NASA · Mar 2024</div></div></a>
-          <a href="/certs/python-coursera.pdf"     target="_blank" class="cr"><div class="dz d5"></div><div><div class="cn2">Programming for Everybody (Python)</div><div class="ci">U Michigan / Coursera · Dec 2023</div></div></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<hr>
 
-<div class="dv"></div>
+<!-- Education -->
+<div class="section-title">Education</div>
 
-<!-- ══ CONTACT ══ -->
-<section id="contact" class="fi con">
-  <div class="w">
-    <div class="lb" style="justify-content:center;">06 — Contact</div>
-    <h2 class="ctt">Let's Work Together</h2>
-    <p class="csu">Open to conversations about meaningful work in AI, space systems, or anything in between.</p>
-    <div class="cln">
-      <a href="#" class="cl3" onclick="navigator.clipboard.writeText('kevin@safetycriticallabs.com').then(()=>{this.textContent='✓ Copied!'; setTimeout(()=>{this.textContent='✉ Email';},2000);}); return false;">Email</a>
-      <a href="https://github.com/kevinjohnwilliams" class="cl3" target="_blank" rel="me">GitHub</a>
-      <a href="https://orcid.org/0009-0002-3308-3415" class="cl3" target="_blank" rel="me">ORCID</a>
-      <a href="/resume.pdf" class="cl3">Resume</a>
-    </div>
-  </div>
-</section>
+<div class="edu">
+  <h3>M.S. Artificial Intelligence</h3>
+  <div class="details">University of Michigan · May 2026</div>
+</div>
 
-</div><!-- /page -->
+<div class="edu">
+  <h3>B.S. Mechanical Engineering</h3>
+  <div class="details">University of Michigan · 2021 · <a href="https://me.engin.umich.edu/me150/make-your-mark/share-your-story/">Featured in U-M ME150</a></div>
+</div>
 
-<footer>
-  <span>© 2026 Kevin Williams. All rights reserved.</span>
-  <span>Built with purpose.</span>
-</footer>
+<hr>
 
-<script data-cfasync="false" src="/cdn-cgi/..."></script>
-<script>
-/* ── THEME ── */
-function autoT(){const h=new Date().getHours();return(h>=7&&h<20)?'light':'dark';}
-function setT(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('kw-t',t);placePlanets();}
-setT(localStorage.getItem('kw-t')||autoT());
-document.getElementById('tog').addEventListener('click',()=>{
-  setT(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
-});
+<!-- Research Projects -->
+<div class="section-title">Research Projects</div>
 
-/* ── HAMBURGER ── */
-const hbg=document.getElementById('hbg'),nl=document.getElementById('nl');
-hbg.addEventListener('click',()=>{hbg.classList.toggle('on');nl.classList.toggle('open');});
-nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hbg.classList.remove('on');nl.classList.remove('open');}));
+<div class="project">
+  <h3><a href="https://doi.org/10.5281/zenodo.19323435">AI Requirements Framework</a></h3>
+  <p>
+    Open standard for certifying AI in safety-critical systems. Nine requirements
+    (AI-1 through AI-9) covering bias, validation, hallucination, and human-AI teaming.
+    Gap analysis confirmed no existing standard adequately addresses AI-specific failure
+    modes in human spaceflight.
+  </p>
+</div>
 
-/* ── FADE IN ── */
-const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on');});},{threshold:.07,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.fi').forEach(el=>io.observe(el));
-setTimeout(()=>document.querySelectorAll('.fi').forEach(el=>el.classList.add('on')),400);
+<div class="project">
+  <h3>Privacy-Preserving Cognitive Twin</h3>
+  <p>
+    Adversarial evaluation pipeline studying model vulnerability to membership inference
+    attacks — confidence-based, label-only, and shadow model variants. Benchmarked three
+    defense strategies: DP-SGD via Opacus, Model Confidence Exclusion, and a fusion defense,
+    sweeping ε values to empirically map privacy–utility tradeoffs.
+  </p>
+</div>
 
-/* ── ACTIVE NAV ── */
-const sects=document.querySelectorAll('section[id]'),nls=document.querySelectorAll('.nl a');
-window.addEventListener('scroll',()=>{
-  let c='';sects.forEach(s=>{if(scrollY>=s.offsetTop-180)c=s.id;});
-  nls.forEach(a=>{if(!a.classList.contains('bx'))a.classList.toggle('on',a.getAttribute('href')==='#'+c);});
-},{passive:true});
+<div class="project">
+  <h3><a href="https://kevwill-microstructure-classifier.hf.space">μStruct — AI Microstructure Identification</a></h3>
+  <p>
+    Ensemble classifier combining CLIP zero-shot inference with FAISS similarity-weighted
+    voting across 6,000+ micrographs and 16 steel microstructural phases. Productionized
+    with FastAPI and Docker on Hugging Face Spaces.
+  </p>
+</div>
 
-/* ── PLANETS ──
-   Positioned in absolute coords relative to #page.
-   Each entry: { x_vw, y_el, size, type, opacity, anim }
-   x_vw  = viewport-width fraction (0–1)
-   y_el  = CSS selector to anchor Y near (plus offset_px)
-   We measure element positions after load.
-*/
-function makeSVG(type,size,op){
-  const s=document.createElementNS('http://www.w3.org/2000/svg','svg');
-  s.setAttribute('viewBox',`0 0 ${size} ${size}`);
-  s.setAttribute('width',size); s.setAttribute('height',size);
-  s.setAttribute('overflow','visible');
-  s.style.cssText=`position:absolute;pointer-events:none;overflow:visible;opacity:${op};`;
+<div class="project">
+  <h3>Disaster Infrastructure Damage Recognition</h3>
+  <p>
+    CNN-based binary classifier for infrastructure damage assessment in post-event aerial
+    and ground imagery. Empirical evaluation of classification confidence thresholds for
+    first-responder deployment readiness.
+  </p>
+</div>
 
-  const dk=document.documentElement.getAttribute('data-theme')==='dark';
-  // colour map
-  const C={blue:dk?'#4a8ff5':'#3d7ce0',orange:dk?'#ff7d45':'#e0652a',
-            green:dk?'#40e89a':'#18a05a',yellow:dk?'#ffcc44':'#d49010',
-            purple:dk?'#a87dff':'#8040d8',red:dk?'#ff5566':'#d83040'};
+<hr>
 
-  const h=size/2, r=size*0.47;
-  function el(tag,attrs){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e;}
+<!-- Publications -->
+<div class="section-title">Publications</div>
 
-  if(type==='saturn-blue'){
-    const rc=C.blue,rr=r,ry=h+rr*0.38;
-    s.appendChild(el('ellipse',{cx:h,cy:ry,rx:rr*1.38,ry:rr*0.28,fill:'none',stroke:rc,'stroke-width':rr*0.1,opacity:'.22'}));
-    s.appendChild(el('circle', {cx:h,cy:h,r:rr,fill:rc,opacity:'.9'}));
-    s.appendChild(el('circle', {cx:h-rr*.28,cy:h-rr*.28,r:rr*.42,fill:'rgba(255,255,255,.07)'}));
-    s.appendChild(el('ellipse',{cx:h,cy:h-rr*.1,rx:rr,ry:rr*.14,fill:'rgba(255,255,255,.05)'}));
-    s.appendChild(el('path',   {d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,20,.22)'}));
-    // front ring
-    s.appendChild(el('ellipse',{cx:h,cy:ry,rx:rr*1.38,ry:rr*0.28,fill:'none',stroke:rc,'stroke-width':rr*0.1,opacity:'.55','stroke-dasharray':`${rr*4.35} ${rr*4.6}`,'stroke-dashoffset':`${rr*2.3}`}));
-    // orbit moon
-    const g=document.createElementNS('http://www.w3.org/2000/svg','g');
-    g.style.cssText=`transform-origin:${h}px ${h}px;animation:orb 10s linear infinite;transform-box:fill-box;`;
-    g.appendChild(el('circle',{cx:h+rr+rr*.6,cy:h-rr*.55,r:rr*.14,fill:C.green,opacity:'.9'}));
-    s.appendChild(g);
-  } else if(type==='saturn-purple'){
-    const rc=C.purple,rr=r,ry=h+rr*0.38;
-    s.appendChild(el('ellipse',{cx:h,cy:ry,rx:rr*1.38,ry:rr*0.27,fill:'none',stroke:rc,'stroke-width':rr*0.09,opacity:'.3'}));
-    s.appendChild(el('circle', {cx:h,cy:h,r:rr,fill:rc,opacity:'.85'}));
-    s.appendChild(el('circle', {cx:h-rr*.28,cy:h-rr*.28,r:rr*.38,fill:'rgba(255,255,255,.07)'}));
-    s.appendChild(el('path',   {d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,0,.18)'}));
-    s.appendChild(el('ellipse',{cx:h,cy:ry,rx:rr*1.38,ry:rr*0.27,fill:'none',stroke:rc,'stroke-width':rr*0.08,opacity:'.55','stroke-dasharray':`${rr*4.35} ${rr*4.6}`,'stroke-dashoffset':`${rr*2.3}`}));
-  } else if(type==='orange'){
-    const rc=C.orange,rr=r;
-    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:rc,opacity:'.92'}));
-    s.appendChild(el('circle',{cx:h-rr*.28,cy:h-rr*.28,r:rr*.38,fill:'rgba(255,255,255,.07)'}));
-    s.appendChild(el('ellipse',{cx:h,cy:h-rr*.12,rx:rr,ry:rr*.15,fill:'rgba(255,255,255,.06)'}));
-    s.appendChild(el('ellipse',{cx:h,cy:h+rr*.1, rx:rr,ry:rr*.12,fill:'rgba(0,0,0,.1)'}));
-    s.appendChild(el('path',  {d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,0,.2)'}));
-  } else if(type==='green'){
-    const rc=C.green,rr=r;
-    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:rc,opacity:'.88'}));
-    s.appendChild(el('circle',{cx:h-rr*.3,cy:h-rr*.3,r:rr*.34,fill:'rgba(255,255,255,.1)'}));
-    s.appendChild(el('path',  {d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,0,.16)'}));
-  } else if(type==='yellow'){
-    const rc=C.yellow,rr=r;
-    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:rc,opacity:'.88'}));
-    s.appendChild(el('circle',{cx:h-rr*.3,cy:h-rr*.3,r:rr*.34,fill:'rgba(255,255,255,.1)'}));
-    s.appendChild(el('path',  {d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,0,.15)'}));
-  } else if(type==='red'){
-    const rc=C.red,rr=r;
-    s.appendChild(el('circle',{cx:h,cy:h,r:rr,fill:rc,opacity:'.8'}));
-    s.appendChild(el('circle',{cx:h-rr*.3,cy:h-rr*.3,r:rr*.32,fill:'rgba(255,255,255,.08)'}));
-    s.appendChild(el('path',  {d:`M${h} ${h-rr} A${rr} ${rr} 0 0 0 ${h} ${h+rr}`,fill:'rgba(0,0,0,.16)'}));
-  } else if(type==='ghost-ring'){
-    const rc=C.blue,rr=r,ry=h+rr*0.36;
-    s.appendChild(el('ellipse',{cx:h,cy:ry,rx:rr*1.35,ry:rr*0.26,fill:'none',stroke:rc,'stroke-width':'2',opacity:'.4'}));
-    s.appendChild(el('circle', {cx:h,cy:h,r:rr,fill:rc,opacity:'.12'}));
-    s.appendChild(el('circle', {cx:h,cy:h,r:rr,fill:'none',stroke:rc,'stroke-width':'1.5',opacity:'.28'}));
-  }
-  return s;
-}
+<div class="pub">
+  <a href="https://doi.org/10.5281/zenodo.19323435">Requirements and Verification Standards for Artificial Intelligence in Safety-Critical Applications</a><br>
+  <span class="venue">Kevin Williams · Safety Critical Labs · Zenodo, 2026</span>
+</div>
 
-function placePlanets(){
-  const pp=document.getElementById('pp');
-  pp.innerHTML='';
-  const page=document.getElementById('page');
-  const pageH=page.scrollHeight;
-  const vw=window.innerWidth;
+<div class="pub">
+  <a href="papers/thc-detection.pdf">Differential pulsed voltammetry of Δ9-THC on disposable screen-printed carbon electrodes: A potential in-field method to detect Δ9-THC in saliva</a><br>
+  <span class="venue">2023 · University of Michigan</span>
+</div>
 
-  // Helper: get Y center of an element relative to #page
-  function yOf(sel,offset=0){
-    const el=document.querySelector(sel);
-    if(!el)return 0;
-    const r=el.getBoundingClientRect();
-    return r.top+scrollY+r.height/2+offset - page.getBoundingClientRect().top - scrollY;
-  }
+<hr>
 
-  const dk=document.documentElement.getAttribute('data-theme')==='dark';
-  const opScale=dk?1:0.6;
+<!-- Awards -->
+<div class="section-title">Awards</div>
 
-  // Define planets: [type, sizePx, opacity, xFrac (of vw), ySelector, yOffset, animClass]
-  const planets=[
-    // HERO — Saturn right-center, large. Orange top-right cropped.
-    ['saturn-blue',  360, 0.85*opScale, 0.62,  '.hero',            0,    'fa'],
-    ['orange',       200, 0.80*opScale, 0.92,  '.hero',          -280,   'fb'],
-    ['saturn-purple',130, 0.72*opScale, 0.52,  '.hero',          -200,   'fc'],
-    ['yellow',        90, 0.75*opScale, 0.43,  '.hero',           220,   'fd'],
-    ['red',           64, 0.60*opScale, 0.04,  '.hero',            20,   'fb'],
+<div class="award">
+  <strong>NASA Silver Bear Award</strong> <span>— Certification of AI on Human-Rated Space Flight Systems</span>
+</div>
+<div class="award">
+  <strong>Ford Technical Excellence Award</strong> <span>— Deep Learning for Quality Decisions</span>
+</div>
 
-    // WHY — green moon dead-center between card 1 and 2 (at x~35% of vw)
-    ['green',         80, 0.70*opScale, 0.36,  '#why .g3',         20,   'fa'],
-    // ghost ring bleeding off right edge of card 3
-    ['ghost-ring',   180, 0.55*opScale, 0.96,  '#why .tt',         60,   'fc'],
-    // small purple behind card 3 bottom
-    ['saturn-purple', 72, 0.60*opScale, 0.04,  '#why .g3',        160,   'fd'],
+<hr>
 
-    // WORK — large purple saturn drifting behind cards center-right
-    ['saturn-purple',240, 0.45*opScale, 0.62,  '#work .g2',         0,   'fb'],
-    // yellow between row 1 and row 2 of work grid, left side
-    ['yellow',        78, 0.65*opScale, 0.28,  '#work .g2 .cd:nth-child(3)', -20, 'fa'],
-    // orange top-right near work heading
-    ['orange',        60, 0.60*opScale, 0.88,  '#work .tt',        -30,   'fc'],
+<hr>
 
-    // PATH — green moon in gap between photo col and timeline col
-    ['green',        100, 0.65*opScale, 0.48,  '#path .pg2',        80,   'fb'],
-    // small orange floating near top of timeline
-    ['orange',        72, 0.56*opScale, 0.88,  '#path .ti:first-child', 0, 'fd'],
-    // ghost blue ring bottom-left near edu cards
-    ['ghost-ring',   140, 0.45*opScale, 0.06,  '#path .eg',         60,   'fa'],
+<!-- Beyond -->
+<div class="section-title">Beyond the Code</div>
 
-    // SKILLS — purple between row 2 and 3, right side
-    ['saturn-purple', 96, 0.60*opScale, 0.84,  '#skills .sb2:nth-child(2)', 30, 'fc'],
-    // red micro left of row 1
-    ['red',           46, 0.55*opScale, 0.10,  '#skills .tt',       20,   'fb'],
+<p style="font-size: 0.92rem; line-height: 1.65; margin-bottom: 1rem;">
+  I think a lot about what it means to live well — love, kindness, integrity, the
+  discipline of showing up when you don't feel like it. These aren't separate from the
+  engineering. They're the foundation of it. The way I approach AI safety starts with
+  the same questions philosophy has always asked: what do we owe each other, and what
+  does it look like to build systems that reflect that?
+</p>
 
-    // CREDS — large blue saturn centered behind both columns
-    ['ghost-ring',   280, 0.40*opScale, 0.42,  '#creds .cg',       100,   'fb'],
-    // green dot right side near certs
-    ['green',         58, 0.65*opScale, 0.92,  '#creds .cl2',      -30,   'fa'],
-    // orange dot bottom left
-    ['orange',        50, 0.55*opScale, 0.04,  '#creds .cg',       200,   'fd'],
+<p style="font-size: 0.92rem; line-height: 1.65; margin-bottom: 1rem;">
+  I train every day, produce music, and still want to be an astronaut. I don't have
+  social media. I'd rather be known for what I build and how I treat people than for
+  a curated presence.
+</p>
 
-    // CONTACT — concentric rings centered, small planets flanking
-    ['ghost-ring',   420, 0.22*opScale, 0.50,  '.con .ctt',         60,   'fa'],
-    ['orange',        64, 0.60*opScale, 0.82,  '.con .ctt',        -60,   'fb'],
-    ['green',         50, 0.55*opScale, 0.15,  '.con .cln',         30,   'fa'],
-    ['saturn-purple', 60, 0.50*opScale, 0.24,  '.con .lb',         -10,   'fc'],
-  ];
+<div class="footer">
+  <hr>
+  <p>0 frameworks were used to make this website.</p>
+</div>
 
-  const anims={'fa':'fa 5.5s ease infinite','fb':'fb 7s ease infinite 1.2s','fc':'fc 9s ease infinite 2.4s','fd':'fd 6.2s ease infinite 0.8s'};
-
-  planets.forEach(([type,size,op,xFrac,sel,yOff,anim])=>{
-    const y=yOf(sel,yOff);
-    const svg=makeSVG(type,size,op);
-    const x=vw*xFrac - size/2;
-    svg.style.left=`${Math.round(x)}px`;
-    svg.style.top= `${Math.round(y - size/2)}px`;
-    svg.style.animation=anims[anim];
-    pp.appendChild(svg);
-  });
-}
-
-// Place after layout is stable
-window.addEventListener('load',()=>{placePlanets();});
-window.addEventListener('resize',()=>{placePlanets();});
-
-/* ── CANVAS ── */
-(function(){
-  const cv=document.getElementById('cv'),cx=cv.getContext('2d');
-  let W,H,stars=[];
-  function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
-  function mkS(){
-    stars=[];
-    const dk=document.documentElement.getAttribute('data-theme')==='dark';
-    const n=dk?Math.floor(W*H/2800):Math.floor(W*H/24000);
-    for(let i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.2,op:Math.random()*.5+.15,tw:Math.random()*Math.PI*2,ts:Math.random()*.007+.002});
-  }
-  function draw(){
-    cx.clearRect(0,0,W,H);
-    const dk=document.documentElement.getAttribute('data-theme')==='dark';
-    if(dk){
-      [[W*.78,H*.16,.42,'rgba(91,155,255,.052)'],[W*.1,H*.72,.34,'rgba(181,139,255,.042)'],[W*.5,H*.5,.65,'rgba(91,155,255,.018)']].forEach(([x,y,r,c])=>{
-        const g=cx.createRadialGradient(x,y,0,x,y,W*r);g.addColorStop(0,c);g.addColorStop(1,'transparent');cx.fillStyle=g;cx.fillRect(0,0,W,H);
-      });
-    }
-    stars.forEach(s=>{s.tw+=s.ts;const op=s.op*(.55+.45*Math.sin(s.tw));cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fillStyle=dk?`rgba(255,255,255,${op})`:`rgba(60,80,200,${op*.3})`;cx.fill();});
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',()=>{resize();mkS();});
-  new MutationObserver(()=>mkS()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  resize();mkS();draw();
-})();
-</script>
 </body>
 </html>
