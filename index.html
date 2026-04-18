@@ -248,7 +248,7 @@
     Traditional software assurance assumes deterministic, logic-based systems with stable
     behavior after deployment. AI doesn't work that way. Safety Critical Labs certifies AI
     and ML systems against the
-    <a href="https://doi.org/10.5281/zenodo.19323435">AI Requirements Framework</a> —
+    <a href="https://doi.org/10.5281/zenodo.19323435">AI Requirements Framework</a>:
     requirements and verification methods designed specifically for data-driven, probabilistic
     systems, covering bias, drift, hallucination, explainability, and human-AI interaction.
     Applicable across aerospace, aviation, automotive, and medical domains.
@@ -259,24 +259,20 @@
 <div class="section-title">Experience</div>
 
 <div class="timeline-entry">
-  <div class="period">Jan 2026 — present · Oct 2023 — Feb 2025</div>
-  <h3>Systems Engineer</h3>
+  <div class="period">Jan 2026 — present</div>
+  <h3>Systems Engineer / Software Architect</h3>
   <div class="org">Barrios Technology → NASA Johnson Space Center</div>
   <p>
-    Developing, reviewing, and verifying systems engineering requirements across ISS, Orion,
-    and the Commercial LEO Development Program (CLDP), including interface and safety
-    requirements for commercial partner integration. Integrated AI requirements framework
-    into CLDP, establishing evaluation criteria for autonomous systems in safety-critical
-    human spaceflight environments. Defining data architecture for the Extravehicular Activity
-    and Human Surface Mobility Program (EHP). Coordinating with commercial partners including
-    Axiom Space on requirements alignment and NASA human spaceflight safety compliance.
+    Designing and building the EHP Program Hub Dashboard, cataloging 100+ tools across 9
+    offices to consolidate tool visibility for the Extravehicular Activity and Human Surface
+    Mobility Program, with planned extension to CLDP, ISS, and other programs. Delivered as
+    a vanilla HTML/CSS/JS single-file SPA per deliberate audit-friendly deployment constraints,
+    coordinating with IT staff for structured data collection across offices.
   </p>
   <div>
-    <span class="tag">NPR 7123</span>
-    <span class="tag">NPR 7150.2</span>
+    <span class="tag">EHP</span>
+    <span class="tag">SPA</span>
     <span class="tag">MBSE</span>
-    <span class="tag">V&amp;V</span>
-    <span class="tag">CLDP</span>
   </div>
 </div>
 
@@ -285,17 +281,43 @@
   <h3>Software Engineer</h3>
   <div class="org">Barrios Technology</div>
   <p>
-    Architected and deployed Cortex, a unified enterprise data platform with integrated LLM
-    capabilities for Intuitive Machines, replacing fragmented workflows with a single interface
-    for document management, data retrieval, and cross-team collaboration. Developed
-    cross-platform Flutter application for KULR Technologies automating report generation
-    and operational workflows.
+    Architected and built Cortex, an enterprise data platform with integrated LLM capabilities
+    (chat-based CRUD, inline suggestions, and data extraction) for Intuitive Machines, built
+    on Django with an EAV architecture and MySQL backend. Deployed internally at Barrios for
+    dev/test validation and delivered to customer-readiness stage. Continued part-time
+    development of the CLDP AI requirements framework during this period, maintaining
+    continuity of the safety-critical AI certification effort.
   </p>
   <div>
     <span class="tag">Django</span>
-    <span class="tag">Python</span>
-    <span class="tag">Flutter</span>
+    <span class="tag">MySQL</span>
     <span class="tag">LLMs</span>
+    <span class="tag">EAV</span>
+  </div>
+</div>
+
+<div class="timeline-entry">
+  <div class="period">Oct 2023 — Feb 2025</div>
+  <h3>Systems Engineer</h3>
+  <div class="org">Barrios Technology → NASA Johnson Space Center</div>
+  <p>
+    Served as NASA SE&amp;I reviewer across four CLDP commercial partners, conducting ~40
+    reviews in 9 months, including CDPO-delegated lead review authority for Blue Origin,
+    and generating RFAs and RIDs reported directly to the Program Office that drove
+    partner-implemented design changes. Led requirements traceability for CLDP, tracing
+    300+ requirements to CLDP-REQ-1130 and delivering a unified baseline adopted by the
+    Program Office, NASA, and all three partners. Authored 70 requirements in a new AI
+    requirements framework with SME consultation from the University of Michigan, FAA, ISO,
+    and NASA, cofounding the AI-in-Flight working group. Earlier: evaluated Flight Test
+    Objectives across 18 Orion subsystems toward the Artemis I Flight Analysis Report; traced
+    SSP 51074 CERD requirements for Axiom Space docking integration with ISS through SRR.
+  </p>
+  <div>
+    <span class="tag">NPR 7123</span>
+    <span class="tag">NPR 7150.2</span>
+    <span class="tag">CLDP</span>
+    <span class="tag">V&amp;V</span>
+    <span class="tag">AI Governance</span>
   </div>
 </div>
 
@@ -304,12 +326,14 @@
   <h3>Engineering Specialist</h3>
   <div class="org">Ford Motor Company</div>
   <p>
-    Led 20-person eMotor materials laboratory — metallurgical cross-sectioning, microscopy,
-    hardness, and tensile testing to characterize materials and qualify components for
-    electrified powertrain programs. Conducted failure analysis and root cause investigations,
-    contributing to DFMEA/PFMEA processes. Designed test fixtures and measurement systems
-    using CAD with GD&amp;T. Developed automated inspection systems feeding quantitative data
-    back into design reviews.
+    Launched and led a 20-person eMotor materials laboratory (12 hourly, 8 salary) on 24/7
+    shift coverage, testing stators and rotors at hundreds of parts per week for F-150 Lightning
+    and Maverick Hybrid programs. Owned full lab buildup (equipment acquisition, hiring,
+    procedure development, calibration) through ISO certification and production readiness.
+    Self-initiated a PyTorch computer vision pipeline (regression with Kalman-filtered
+    segmentation) for varnish surface area measurement on eMotor stators, achieving 99% accuracy
+    and saving 1+ hour per quality check. Conducted failure analysis and supplier investigations
+    driving DFMEA/PFMEA iterations.
   </p>
   <div>
     <span class="tag">Materials</span>
@@ -339,11 +363,13 @@
 <div class="timeline-entry">
   <div class="period">2012 — 2017</div>
   <h3>Materials &amp; Chemical Technician</h3>
-  <div class="org">Hyundai-Kia · General Motors · Quaker Chemicals</div>
+  <div class="org">Quaker Chemical · General Motors · Hyundai-Kia</div>
   <p>
-    Metallurgical analysis, material validation, and quality testing across automotive OEMs.
-    Established GM Flint Engine metallurgical lab. Led supplier corrective actions at
-    Hyundai-Kia. Trained personnel on QA protocols.
+    Metallurgical analysis, material validation, and quality testing across automotive OEMs
+    and suppliers. Delivered QA protocol training at Quaker Chemical (2012–2015). Established
+    the metallurgical lab supporting the 2017 SGE crankshaft line at GM Flint Engine
+    (2015–2016). Led supplier corrective actions, material validation, and quality testing
+    at Hyundai-Kia (2017).
   </p>
 </div>
 
@@ -370,10 +396,11 @@
 <div class="project">
   <h3><a href="https://doi.org/10.5281/zenodo.19323435">AI Requirements Framework</a></h3>
   <p>
-    Open standard for certifying AI in safety-critical systems. Nine requirements
-    (AI-1 through AI-9) covering bias, validation, hallucination, and human-AI teaming.
-    Gap analysis confirmed no existing standard adequately addresses AI-specific failure
-    modes in human spaceflight.
+    Open standard for certifying AI in safety-critical systems. Ten requirements
+    (AI-1 through AI-10) covering operational and data foundations, bias, ML test coverage,
+    continuous validation, hallucination, out-of-distribution detection, adversarial
+    robustness, explainability, human-AI teaming, and privacy. Gap analysis confirmed no
+    existing standard adequately addresses AI-specific failure modes in human spaceflight.
   </p>
 </div>
 
@@ -381,9 +408,9 @@
   <h3>Privacy-Preserving Cognitive Twin</h3>
   <p>
     Adversarial evaluation pipeline studying model vulnerability to membership inference
-    attacks — confidence-based, label-only, and shadow model variants. Benchmarked three
-    defense strategies: DP-SGD via Opacus, Model Confidence Exclusion, and a fusion defense,
-    sweeping ε values to empirically map privacy–utility tradeoffs.
+    attacks: confidence-based, label-only, and shadow model variants. Benchmarked three
+    defense strategies (DP-SGD via Opacus, Model Confidence Exclusion, and a fusion defense),
+    sweeping ε values to empirically map privacy vs. utility tradeoffs.
   </p>
 </div>
 
@@ -426,10 +453,10 @@
 <div class="section-title">Awards</div>
 
 <div class="award">
-  <strong>NASA Silver Bear Award</strong> <span>— Certification of AI on Human-Rated Space Flight Systems</span>
+  <strong>NASA Silver Bear Award</strong> <span>HSFTIC, July 2025 · Leading role integrating AI into NASA's Software Engineering Handbook</span>
 </div>
 <div class="award">
-  <strong>Ford Technical Excellence Award</strong> <span>— Deep Learning for Quality Decisions</span>
+  <strong>Ford Technical Excellence Award</strong> <span>June 2023 · Deep learning for eMotor stator varnish inspection</span>
 </div>
 
 <hr>
@@ -438,11 +465,10 @@
 <div class="section-title">Beyond the Code</div>
 
 <p style="font-size: 0.92rem; line-height: 1.65; margin-bottom: 1rem;">
-  I think a lot about what it means to live well — love, kindness, integrity, the
-  discipline of showing up when you don't feel like it. These aren't separate from the
-  engineering. They're the foundation of it. The way I approach AI safety starts with
-  the same questions philosophy has always asked: what do we owe each other, and what
-  does it look like to build systems that reflect that?
+  Working on machines that behave human pulled me into the philosophy of being one.
+  I see us as spiritual creatures with intellect, manifest physically. Conscience is
+  the first-person experience of that. Love is the quiet recognition upon being shared.
+  Faith in something of value sets the roots, and belief and morals branch from there.
 </p>
 
 <p style="font-size: 0.92rem; line-height: 1.65; margin-bottom: 1rem;">
